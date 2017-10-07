@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="最近在Rbloggers上看到了一篇很有趣的博文，特转载如下。 1library(rgl) rnorm()函数12345678910111213141516set.seed(1234)r &amp;lt;- rnorm(1000)x &amp;lt;- r[seq(1, length(r), 3)]str(x)##  num [1:334] -1.207 -2.346 -0.575 -0.89 -0.776 ..">
+<meta name="description" content="最近在Rbloggers上看到了一篇很有趣的博文，特转载如下。">
 <meta name="keywords" content="rgl,visulization">
 <meta property="og:type" content="article">
 <meta property="og:title" content="R语言生成随机数3维图（上）">
 <meta property="og:url" content="http://yoursite.com/2017/10/08/R语言生成随机数3维图（上）/index.html">
 <meta property="og:site_name" content="Leo Lee">
-<meta property="og:description" content="最近在Rbloggers上看到了一篇很有趣的博文，特转载如下。 1library(rgl) rnorm()函数12345678910111213141516set.seed(1234)r &amp;lt;- rnorm(1000)x &amp;lt;- r[seq(1, length(r), 3)]str(x)##  num [1:334] -1.207 -2.346 -0.575 -0.89 -0.776 ..">
+<meta property="og:description" content="最近在Rbloggers上看到了一篇很有趣的博文，特转载如下。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-07T17:00:06.146Z">
+<meta property="og:updated_time" content="2017-10-07T17:02:12.247Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="R语言生成随机数3维图（上）">
-<meta name="twitter:description" content="最近在Rbloggers上看到了一篇很有趣的博文，特转载如下。 1library(rgl) rnorm()函数12345678910111213141516set.seed(1234)r &amp;lt;- rnorm(1000)x &amp;lt;- r[seq(1, length(r), 3)]str(x)##  num [1:334] -1.207 -2.346 -0.575 -0.89 -0.776 ..">
+<meta name="twitter:description" content="最近在Rbloggers上看到了一篇很有趣的博文，特转载如下。">
 
 
 
@@ -363,6 +363,7 @@
 
       
         <p>最近在<a href="www.r-bloggers.com">Rbloggers</a>上看到了一篇很有趣的博文，特转载如下。</p>
+<a id="more"></a> 
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(rgl)</div></pre></td></tr></table></figure>
 <h2 id="rnorm-函数"><a href="#rnorm-函数" class="headerlink" title="rnorm()函数"></a><code>rnorm()</code>函数</h2><figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">set.seed(<span class="number">1234</span>)</div><div class="line">r &lt;- rnorm(<span class="number">1000</span>)</div><div class="line"></div><div class="line">x &lt;- r[seq(<span class="number">1</span>, length(r), <span class="number">3</span>)]</div><div class="line">str(x)</div><div class="line"><span class="comment">##  num [1:334] -1.207 -2.346 -0.575 -0.89 -0.776 ...</span></div><div class="line">y &lt;- r[seq(<span class="number">2</span>, length(r), <span class="number">3</span>)]</div><div class="line">str(y)</div><div class="line"><span class="comment">##  num [1:333] 0.2774 0.4291 -0.5466 -0.4772 0.0645 ...</span></div><div class="line">z &lt;- r[seq(<span class="number">3</span>, length(r), <span class="number">3</span>)]</div><div class="line">str(z)</div><div class="line"><span class="comment">##  num [1:333] 1.084 0.506 -0.564 -0.998 0.959 ...</span></div><div class="line"></div><div class="line">lim &lt;- <span class="keyword">function</span>(x) &#123;</div><div class="line">  c(-max(abs(x)), max(abs(x))) * <span class="number">1.1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">rgl.open()</div><div class="line">rgl.bg(color = <span class="string">"white"</span>)</div><div class="line">rgl.spheres(x, y, z, r = <span class="number">0.5</span>, color = <span class="string">"lightblue"</span>)</div><div class="line">rgl.lines(lim(x), c(<span class="number">0</span>, <span class="number">0</span>), c(<span class="number">0</span>, <span class="number">0</span>), color = <span class="string">"black"</span>, lw = <span class="number">1.5</span>)</div><div class="line">rgl.lines(c(<span class="number">0</span>, <span class="number">0</span>), lim(y), c(<span class="number">0</span>, <span class="number">0</span>), color = <span class="string">"red"</span>, lw = <span class="number">1.5</span>)</div><div class="line">rgl.lines(c(<span class="number">0</span>, <span class="number">0</span>), c(<span class="number">0</span>, <span class="number">0</span>), lim(z), color = <span class="string">"blue"</span>, lw = <span class="number">1.5</span>)</div><div class="line">grid3d(c(<span class="string">"x"</span>, <span class="string">"y"</span>, <span class="string">"z"</span>))</div><div class="line">rglwidget()</div></pre></td></tr></table></figure>
