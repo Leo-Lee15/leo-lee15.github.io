@@ -1,0 +1,763 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="R,dplyr," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Leo Lee" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="今天看到群里面有童鞋问了一个问题：如何查找数据框中的重复值？这个问题问的非常好，而且很有趣。查找重复值一般大家都会想到unique()函数，distinct()函数，duplicated()函数等等。但是这些函数一般只能找出每组重复数据中的一个，并不能指出哪些数据是重复的。怎么办？有个童鞋给出了一个非常有创意的解决方案。下面来看看代码：">
+<meta name="keywords" content="R,dplyr">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何查找数据框中重复的数据">
+<meta property="og:url" content="http://yoursite.com/2017/06/08/如何查找数据框中重复的数据/index.html">
+<meta property="og:site_name" content="Leo Lee">
+<meta property="og:description" content="今天看到群里面有童鞋问了一个问题：如何查找数据框中的重复值？这个问题问的非常好，而且很有趣。查找重复值一般大家都会想到unique()函数，distinct()函数，duplicated()函数等等。但是这些函数一般只能找出每组重复数据中的一个，并不能指出哪些数据是重复的。怎么办？有个童鞋给出了一个非常有创意的解决方案。下面来看看代码：">
+<meta property="og:updated_time" content="2017-06-08T02:16:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="如何查找数据框中重复的数据">
+<meta name="twitter:description" content="今天看到群里面有童鞋问了一个问题：如何查找数据框中的重复值？这个问题问的非常好，而且很有趣。查找重复值一般大家都会想到unique()函数，distinct()函数，duplicated()函数等等。但是这些函数一般只能找出每组重复数据中的一个，并不能指出哪些数据是重复的。怎么办？有个童鞋给出了一个非常有创意的解决方案。下面来看看代码：">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/08/如何查找数据框中重复的数据/"/>
+
+
+
+
+
+  <title>如何查找数据框中重复的数据 | Leo Lee</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leo Lee</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/公益404" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/06/08/如何查找数据框中重复的数据/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo Lee">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">如何查找数据框中重复的数据</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-08T10:17:52+08:00">
+                2017-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>今天看到群里面有童鞋问了一个问题：如何查找数据框中的重复值？这个问题问的非常好，而且很有趣。查找重复值一般大家都会想到<code>unique()</code>函数，<code>distinct()</code>函数，<code>duplicated()</code>函数等等。但是这些函数一般只能找出每组重复数据中的一个，并不能指出哪些数据是重复的。怎么办？有个童鞋给出了一个非常有创意的解决方案。下面来看看代码：</p>
+<a id="more"></a>  
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 模拟的数据框</span></div><div class="line">dat &lt;- data.frame(</div><div class="line">  id1 = c(<span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">1</span>),</div><div class="line">  id2 = c(<span class="number">2</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">2</span>, <span class="number">2</span>, <span class="number">2</span>),</div><div class="line">  id3 = c(<span class="number">4</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">7</span>, <span class="number">9</span>)</div><div class="line">)</div><div class="line">dat</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#&gt;   id1 id2 id3</div><div class="line">#&gt; 1   1   2   4</div><div class="line">#&gt; 2   1   2   4</div><div class="line">#&gt; 3   1   3   6</div><div class="line">#&gt; 4   2   2   7</div><div class="line">#&gt; 5   2   2   7</div><div class="line">#&gt; 6   1   2   9</div></pre></td></tr></table></figure>
+<p>可以看到，数据框中的第1，第2行是完全相同的，第4，第5行也是完全相同的。数据框小肉眼可以一眼看出来，但是一旦数据框有成千上万行，估计眼睛看瞎了也看出来，^_^。下面我们的任务就找出第1,2,4,5行数据。</p>
+<p>该童鞋给出的解决方案是这样的:</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(dplyr)</div><div class="line">dat %&gt;% </div><div class="line">  <span class="comment"># 下面这一步非常巧妙，将每一列进行分组</span></div><div class="line">  <span class="comment"># 很显然，分完组后，很容易求出哪些组有出现不止一次</span></div><div class="line">  group_by(id1, id2, id3) %&gt;%  </div><div class="line">  <span class="comment"># 注意：这里是mutate(index = n())，不是summarize(index = n())</span></div><div class="line">  mutate(index = n()) %&gt;%</div><div class="line">  <span class="comment"># 选择那些出现不止一次的组</span></div><div class="line">  filter(index &gt; <span class="number">1</span>) %&gt;%</div><div class="line">  <span class="comment"># 选择1前3列</span></div><div class="line">  select(<span class="number">1</span>:<span class="number">3</span>) %&gt;%</div><div class="line">  <span class="comment"># 去掉分组属性</span></div><div class="line">  ungroup()</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">#&gt; # A tibble: 4 x 3</div><div class="line">#&gt;     id1   id2   id3</div><div class="line">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</div><div class="line">#&gt; 1     1     2     4</div><div class="line">#&gt; 2     1     2     4</div><div class="line">#&gt; 3     2     2     7</div><div class="line">#&gt; 4     2     2     7</div></pre></td></tr></table></figure>
+<p>上面代码中关键的步骤在于对所有的变量进行分组，以及用<code>mutate()</code>而不是<code>summarize()</code>。下面我们来看看为什么要这样做。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dat %&gt;% </div><div class="line">  group_by(id1, id2, id3) %&gt;%  </div><div class="line">  mutate(index = n())</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#&gt; Source: local data frame [6 x 4]</div><div class="line">#&gt; Groups: id1, id2, id3 [4]</div><div class="line">#&gt; </div><div class="line">#&gt; # A tibble: 6 x 4</div><div class="line">#&gt;     id1   id2   id3 index</div><div class="line">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</div><div class="line">#&gt; 1     1     2     4     2</div><div class="line">#&gt; 2     1     2     4     2</div><div class="line">#&gt; 3     1     3     6     1</div><div class="line">#&gt; 4     2     2     7     2</div><div class="line">#&gt; 5     2     2     7     2</div><div class="line">#&gt; 6     1     2     9     1</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">dat %&gt;% </div><div class="line">  group_by(id1, id2, id3) %&gt;%  </div><div class="line">  summarize(index = n())</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">#&gt; Source: local data frame [4 x 4]</div><div class="line">#&gt; Groups: id1, id2 [?]</div><div class="line">#&gt; </div><div class="line">#&gt; # A tibble: 4 x 4</div><div class="line">#&gt;     id1   id2   id3 index</div><div class="line">#&gt;   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;int&gt;</div><div class="line">#&gt; 1     1     2     4     2</div><div class="line">#&gt; 2     1     2     9     1</div><div class="line">#&gt; 3     1     3     6     1</div><div class="line">#&gt; 4     2     2     7     2</div></pre></td></tr></table></figure>
+<p>看到两者的结果，豁然开朗了吧。原来<strong>聚合函数</strong>也能这么用！！</p>
+<p>上面的解法非常巧妙，我自己是没有想到这么做的。我也给出了一种解决方案，只不过既没有上面代码的优雅，运行效率可能也不如上面的代码。</p>
+<p>我的代码如下：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">duplicated(dat)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] FALSE  TRUE FALSE FALSE  TRUE FALSE</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">dup_dat &lt;- dat[duplicated(dat), ]</div><div class="line">dup_dat</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#&gt;   id1 id2 id3</div><div class="line">#&gt; 2   1   2   4</div><div class="line">#&gt; 5   2   2   7</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">n_dat &lt;- nrow(dat)</div><div class="line">n_dup &lt;- nrow(dup_dat)</div><div class="line">index &lt;- integer(nrow(dat))</div><div class="line"><span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">1</span>:n_dat) <span class="keyword">for</span> (j <span class="keyword">in</span> <span class="number">1</span>:n_dup) &#123;</div><div class="line">  <span class="keyword">if</span> (all(dat[i, ] == dup_dat[j, ]))</div><div class="line">    index[i] &lt;- i</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">index</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] 1 2 0 4 5 0</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">dat[index != <span class="number">0</span>, ]</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#&gt;   id1 id2 id3</div><div class="line">#&gt; 1   1   2   4</div><div class="line">#&gt; 2   1   2   4</div><div class="line">#&gt; 4   2   2   7</div><div class="line">#&gt; 5   2   2   7</div></pre></td></tr></table></figure>
+<p>相比较而言，我的代码就要繁琐多了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+            <a href="/tags/dplyr/" rel="tag"># dplyr</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/11/R语言解决张三，李四王五说谎的问题/" rel="next" title="R语言解决张三，李四王五说谎的问题">
+                <i class="fa fa-chevron-left"></i> R语言解决张三，李四王五说谎的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/06/R语言蒙特卡罗模拟计算圆周率/" rel="prev" title="R语言蒙特卡罗模拟计算圆周率">
+                R语言蒙特卡罗模拟计算圆周率 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/avatar.jpg"
+               alt="Leo Lee" />
+          <p class="site-author-name" itemprop="name">Leo Lee</p>
+           
+              <p class="site-description motion-element" itemprop="description">Leo Lee的个人小站</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Leo-Lee15" target="_blank" title="Github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                  Github
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Leo-Lee15" target="_blank" title="微博">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  微博
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+          <div class="cc-license motion-element" itemprop="license">
+            <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" target="_blank">
+              <img src="/images/cc-by-nc-sa.svg" alt="Creative Commons" />
+            </a>
+          </div>
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Lee</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
