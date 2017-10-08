@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+
+  <meta name="keywords" content="R,if...else,return,microbenchmark," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="一直以来对于return()函数很困惑。在代码到低是写一个return()比较好，还是写多个return比较好呢？纠结的很。今天偶然间在网上看到一个问题：一个函数里面用一个return 好 还是多个return 好？，感觉有点明白了。在上一篇博客解析fivenum函数的源码中，fivenum函数也多次“用到”return，当然只是隐式的调用return函数。那么问题来了？我到底该用哪一种呢？？？">
+<meta name="keywords" content="R,if...else,return,microbenchmark">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于R语言`if...else...return`的一点思考">
+<meta property="og:url" content="http://yoursite.com/2017/10/07/关于R语言`if...else`的一点思考/index.html">
+<meta property="og:site_name" content="Leo Lee">
+<meta property="og:description" content="一直以来对于return()函数很困惑。在代码到低是写一个return()比较好，还是写多个return比较好呢？纠结的很。今天偶然间在网上看到一个问题：一个函数里面用一个return 好 还是多个return 好？，感觉有点明白了。在上一篇博客解析fivenum函数的源码中，fivenum函数也多次“用到”return，当然只是隐式的调用return函数。那么问题来了？我到底该用哪一种呢？？？">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-06-05T16:39:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关于R语言`if...else...return`的一点思考">
+<meta name="twitter:description" content="一直以来对于return()函数很困惑。在代码到低是写一个return()比较好，还是写多个return比较好呢？纠结的很。今天偶然间在网上看到一个问题：一个函数里面用一个return 好 还是多个return 好？，感觉有点明白了。在上一篇博客解析fivenum函数的源码中，fivenum函数也多次“用到”return，当然只是隐式的调用return函数。那么问题来了？我到底该用哪一种呢？？？">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/07/关于R语言`if...else`的一点思考/"/>
+
+
+
+
+
+  <title>关于R语言`if...else...return`的一点思考 | Leo Lee</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leo Lee</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/07/关于R语言`if...else`的一点思考/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo Lee">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关于R语言`if...else...return`的一点思考</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-07T20:42:39+08:00">
+                2017-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R编程风格/" itemprop="url" rel="index">
+                    <span itemprop="name">R编程风格</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一直以来对于<code>return()</code>函数很困惑。在代码到低是写一个<code>return()</code>比较好，还是写多个<code>return</code>比较好呢？纠结的很。今天偶然间在网上看到一个问题：<a href="https://segmentfault.com/q/1010000002546217" target="_blank" rel="external">一个函数里面用一个return 好 还是多个return 好？</a>，感觉有点明白了。在上一篇博客解析<code>fivenum</code>函数的源码中，<code>fivenum</code>函数也多次“用到”<code>return</code>，当然只是隐式的调用<code>return</code>函数。那么问题来了？我到底该用哪一种呢？？？</p>
+<p>我自己写了一个函数，然后用<code>microbenchmark</code>包输出两个函数（各执行10000次）的执行时间，比较哪个更好，以后就用哪个了。^_^</p>
+<a id="more"></a>  
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">ff1 &lt;- <span class="keyword">function</span>(x, y) &#123;</div><div class="line">  <span class="keyword">if</span> (x &lt; y) &#123;</div><div class="line">    <span class="keyword">return</span>(x + y) </div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span> (x == y) &#123;</div><div class="line">    <span class="keyword">return</span>(x - y)</div><div class="line">  &#125; </div><div class="line">  <span class="keyword">if</span> (x &gt; y) &#123;</div><div class="line">    <span class="keyword">return</span>(x * y)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">ff2 &lt;- <span class="keyword">function</span>(x, y) &#123;</div><div class="line">  <span class="keyword">if</span> (x &lt; y) &#123;</div><div class="line">    z &lt;- x + y</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span> (x == y) &#123;</div><div class="line">    z &lt;- x - y</div><div class="line">  &#125; </div><div class="line">  <span class="keyword">if</span> (x &gt; y) &#123;</div><div class="line">    z &lt;- x * y</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span>(z)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ff1(<span class="number">10</span>, <span class="number">4</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] 40</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ff2(<span class="number">10</span>, <span class="number">4</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] 40</div></pre></td></tr></table></figure>
+<p>载入<code>microbenchmark</code>包</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(microbenchmark)</div><div class="line">microbenchmark(ff1(<span class="number">10</span>, <span class="number">4</span>), ff2(<span class="number">10</span>, <span class="number">4</span>), </div><div class="line">               times = <span class="number">10000</span>,  <span class="comment"># 执行10000次</span></div><div class="line">               unit = <span class="string">"ns"</span>)    <span class="comment"># 时间为纳秒</span></div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#&gt; Unit: nanoseconds</div><div class="line">#&gt;        expr min  lq     mean median  uq     max neval cld</div><div class="line">#&gt;  ff1(10, 4)   0 446 1428.514    447 892 7953122 10000   a</div><div class="line">#&gt;  ff2(10, 4)   0 446 1643.996    447 893 9130717 10000   a</div></pre></td></tr></table></figure>
+<blockquote>
+<p>结论：两个函数在执行速度上并没有太大的差别。但是就简洁性而言，第一种多个<code>return()</code>更好。</p>
+</blockquote>
+<p>下面来再来看看<code>if...else</code>语句的例子</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">fg1 &lt;- <span class="keyword">function</span>(x, y) &#123;</div><div class="line">  <span class="keyword">if</span> (x &lt; y) &#123;</div><div class="line">    <span class="keyword">return</span>(x * y)</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span>(x + y)</div><div class="line">&#125;</div><div class="line"></div><div class="line">fg2 &lt;- <span class="keyword">function</span>(x, y) &#123;</div><div class="line">  <span class="keyword">if</span> (x &lt; y) &#123;</div><div class="line">    <span class="keyword">return</span>(x * y)</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">   <span class="keyword">return</span>(x + y) </div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fg1(<span class="number">3</span>, <span class="number">5</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] 15</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fg1(<span class="number">10</span>, <span class="number">8</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] 18</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fg2(<span class="number">3</span>, <span class="number">5</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] 15</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fg2(<span class="number">10</span>, <span class="number">8</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] 18</div></pre></td></tr></table></figure>
+<p>下面看看这两个函数的性能差异</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(microbenchmark)</div><div class="line">microbenchmark(fg1(<span class="number">10</span>, <span class="number">4</span>), fg2(<span class="number">10</span>, <span class="number">4</span>),</div><div class="line">               times = <span class="number">10000</span>, </div><div class="line">               unit = <span class="string">"ns"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#&gt; Unit: nanoseconds</div><div class="line">#&gt;        expr min lq     mean median  uq   max neval cld</div><div class="line">#&gt;  fg1(10, 4)   0  0 349.8470    446 447 23651 10000   a</div><div class="line">#&gt;  fg2(10, 4)   0  0 349.3135    446 447 25881 10000   a</div></pre></td></tr></table></figure>
+<blockquote>
+<p>结论：上面的两个函数性能差异也不是太大。但是就就简洁性而言，没有<code>else</code>的版本更好。其实，这里的<code>else</code>根本就是多余的。因为一旦<code>if</code>条件的结果为真，程序会直接返回<code>return()</code>中的值。后面的代码不回被执行。只不过加了<code>else</code>代码更加清晰一些。</p>
+</blockquote>
+<p>当然，下面的这种情况加<code>else</code>更好。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">f1 &lt;- <span class="keyword">function</span>(x, y) &#123;</div><div class="line">  <span class="keyword">if</span> (x &lt; y) &#123;</div><div class="line">    z &lt;- x - y</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span> (x == y) &#123;</div><div class="line">    z &lt;- x + y</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">if</span> (x &gt; y) &#123;</div><div class="line">    z &lt;- x * y</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span>(z)</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line">f2 &lt;- <span class="keyword">function</span>(x, y) &#123;</div><div class="line">  <span class="keyword">if</span> (x &lt; y) &#123;</div><div class="line">    z &lt;- x - y</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x == y) &#123;</div><div class="line">    z &lt;- x + y</div><div class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (x &gt; y) &#123;</div><div class="line">    z &lt;- x * y</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span>(z)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f1(<span class="number">3</span>, <span class="number">6</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] -3</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">f2(<span class="number">3</span>, <span class="number">6</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] -3</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(microbenchmark)</div><div class="line">microbenchmark(f1(<span class="number">3</span>, <span class="number">6</span>), f2(<span class="number">3</span>, <span class="number">6</span>),</div><div class="line">               times = <span class="number">10000</span>,</div><div class="line">               unit = <span class="string">"ns"</span>)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#&gt; Unit: nanoseconds</div><div class="line">#&gt;      expr min  lq    mean median  uq     max neval cld</div><div class="line">#&gt;  f1(3, 6)   0 446 1440.03    447 447 9028085 10000   a</div><div class="line">#&gt;  f2(3, 6)   0 446 1212.27    446 447 7865215 10000   a</div></pre></td></tr></table></figure>
+<blockquote>
+<p>结论：下面的加<code>else</code>的函数明显快于上面的没有加<code>else</code>的函数。</p>
+</blockquote>
+<p>这是因为这里的判定条件为<code>3 &lt; 6</code>，显然这个为真，但是第一个会接着执行下面的判断函数，直到把所有的判定条件全部执行完毕为止。最终返回为真的结果。但是第二个函数就不一样了，因为后面出现了<code>else</code>语句，编译器一看到这个<code>else</code>，就知道后面的都不用执行了。所以第二个函数要快一些。</p>
+<p>写到这里，心里终于有数了。在函数中，就用多个<code>return</code>吧，当然退而求其次，也可以选择<code>if...else...return</code>。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+            <a href="/tags/if-else/" rel="tag"># if...else</a>
+          
+            <a href="/tags/return/" rel="tag"># return</a>
+          
+            <a href="/tags/microbenchmark/" rel="tag"># microbenchmark</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/07/R函数源码解析—fivenum函数/" rel="next" title="R函数源码解析（一）-- fivenum函数">
+                <i class="fa fa-chevron-left"></i> R函数源码解析（一）-- fivenum函数
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/07/R语言蒙特卡罗模拟计算圆周率/" rel="prev" title="R语言蒙特卡罗模拟计算圆周率">
+                R语言蒙特卡罗模拟计算圆周率 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Leo Lee" />
+            
+              <p class="site-author-name" itemprop="name">Leo Lee</p>
+              <p class="site-description motion-element" itemprop="description">Leo Lee的个人小站</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Leo-Lee15" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:lgz1993leo@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.instagram.com/leeleo93" target="_blank" title="Instagram">
+                    
+                      <i class="fa fa-fw fa-instagram"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Lee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

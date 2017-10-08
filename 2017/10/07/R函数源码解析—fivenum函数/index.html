@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+
+  <meta name="keywords" content="R,fivenum," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本文是R语言中的函数源代码解析系列的第一篇文章。 本文将逐句解释fivenum函数的源码。之所以选取fivenum函数，是因为这个函数比较简单，结构并不复杂。太复杂我都要看晕了，^_^。以后会解析一些比较复杂的函数源代码，当然以 本人目前的水平，只能解释纯粹的R代码，更深层次的C或者其他的语言的代码，还是够呛。 好了，言归正传。直接进入主题吧…">
+<meta name="keywords" content="R,fivenum">
+<meta property="og:type" content="article">
+<meta property="og:title" content="R函数源码解析（一）-- fivenum函数">
+<meta property="og:url" content="http://yoursite.com/2017/10/07/R函数源码解析—fivenum函数/index.html">
+<meta property="og:site_name" content="Leo Lee">
+<meta property="og:description" content="本文是R语言中的函数源代码解析系列的第一篇文章。 本文将逐句解释fivenum函数的源码。之所以选取fivenum函数，是因为这个函数比较简单，结构并不复杂。太复杂我都要看晕了，^_^。以后会解析一些比较复杂的函数源代码，当然以 本人目前的水平，只能解释纯粹的R代码，更深层次的C或者其他的语言的代码，还是够呛。 好了，言归正传。直接进入主题吧…">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-06-05T16:49:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="R函数源码解析（一）-- fivenum函数">
+<meta name="twitter:description" content="本文是R语言中的函数源代码解析系列的第一篇文章。 本文将逐句解释fivenum函数的源码。之所以选取fivenum函数，是因为这个函数比较简单，结构并不复杂。太复杂我都要看晕了，^_^。以后会解析一些比较复杂的函数源代码，当然以 本人目前的水平，只能解释纯粹的R代码，更深层次的C或者其他的语言的代码，还是够呛。 好了，言归正传。直接进入主题吧…">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/07/R函数源码解析—fivenum函数/"/>
+
+
+
+
+
+  <title>R函数源码解析（一）-- fivenum函数 | Leo Lee</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leo Lee</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/07/R函数源码解析—fivenum函数/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo Lee">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">R函数源码解析（一）-- fivenum函数</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-07T20:42:39+08:00">
+                2017-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/R函数源码解析/" itemprop="url" rel="index">
+                    <span itemprop="name">R函数源码解析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文是<strong>R语言中的函数源代码解析</strong>系列的第一篇文章。</p>
+<p>本文将逐句解释<code>fivenum</code>函数的源码。之所以选取<code>fivenum</code>函数，是因为这个函数比较简单，结构并不复杂。太复杂我都要看晕了，^_^。以后会解析一些比较复杂的函数源代码，当然以 本人目前的水平，只能解释纯粹的R代码，更深层次的C或者其他的语言的代码，还是够呛。</p>
+<p>好了，言归正传。直接进入主题吧…</p>
+<a id="more"></a> 
+<p>首先看看<code>fivenum</code>函数是干嘛的。以下内容来自帮助文档。</p>
+<blockquote>
+<p><strong><code>fivenum</code></strong>: Returns Tukey’s five number summary (minimum, lower-hinge, median, upper-hinge, maximum) for the input data.</p>
+</blockquote>
+<p>上面写的很清楚了，返回Tukey五数统计量。</p>
+<p>下面看看<code>fivenum</code>的用法：</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># na.rm默认为TRUE</span></div><div class="line">fivenum(x, na.rm = <span class="literal">TRUE</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li>x: 数值型，可以包含<code>NA</code>和<code>+Inf</code>，<code>-Inf</code></li>
+<li>na.rm: 逻辑型，若为真, 在计算之前删去所有的缺失值（NA）和NaN（Not a number）</li>
+</ul>
+<p>举个例子</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">set.seed(<span class="number">1234</span>)</div><div class="line">fivenum(c(rnorm(<span class="number">100</span>), -<span class="number">1</span>:<span class="number">1</span>/<span class="number">0</span>))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1]       -Inf -0.9111954 -0.3846280  0.5060559        Inf</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fivenum(c(rnorm(<span class="number">20</span>), <span class="literal">NA</span>, <span class="number">10</span>, <span class="literal">NA</span>, <span class="literal">NaN</span>))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1] -1.24428785 -0.50247778  0.02236253  0.35496826 10.00000000</div></pre></td></tr></table></figure>
+<p>通过这两个例子，很容弄清楚<code>fivenum</code>的用法。下面正式进入本文的核心部分，逐句解释<code>fivenum</code>函数的源码。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">fivenum</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">#&gt; function (x, na.rm = TRUE) </div><div class="line">#&gt; &#123;</div><div class="line">#&gt;     xna &lt;- is.na(x)</div><div class="line">#&gt;     if (any(xna)) &#123;</div><div class="line">#&gt;         if (na.rm) </div><div class="line">#&gt;             x &lt;- x[!xna]</div><div class="line">#&gt;         else return(rep.int(NA, 5))</div><div class="line">#&gt;     &#125;</div><div class="line">#&gt;     x &lt;- sort(x)</div><div class="line">#&gt;     n &lt;- length(x)</div><div class="line">#&gt;     if (n == 0) </div><div class="line">#&gt;         rep.int(NA, 5)</div><div class="line">#&gt;     else &#123;</div><div class="line">#&gt;         n4 &lt;- floor((n + 3)/2)/2</div><div class="line">#&gt;         d &lt;- c(1, n4, (n + 1)/2, n + 1 - n4, n)</div><div class="line">#&gt;         0.5 * (x[floor(d)] + x[ceiling(d)])</div><div class="line">#&gt;     &#125;</div><div class="line">#&gt; &#125;</div><div class="line">#&gt; &lt;bytecode: 0x0000000017225fc8&gt;</div><div class="line">#&gt; &lt;environment: namespace:stats&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line">five_nums &lt;- <span class="keyword">function</span>(x, na.rm = <span class="literal">FALSE</span>) &#123;</div><div class="line">  <span class="comment"># 判断x中是否存在缺失值，xna为一个布尔值向量</span></div><div class="line">  xna &lt;- is.na(x)</div><div class="line">  <span class="comment"># 判断x中是否存在缺失值，any(xna)为一个长度为1的布尔值向量，即TRUE或者FALSE</span></div><div class="line">  <span class="keyword">if</span> (any(xna)) &#123;</div><div class="line">    <span class="comment"># 如果na.rm = TRUE，执行x &lt;- x[!xna]</span></div><div class="line">    <span class="keyword">if</span> (na.rm)</div><div class="line">      <span class="comment"># 删去向量x中的缺失值</span></div><div class="line">      x &lt;- x[!xna]</div><div class="line">    <span class="keyword">else</span></div><div class="line">      <span class="comment"># 如果na.rm = FALSE，返回NA, NA, NA, NA, NA</span></div><div class="line">      <span class="keyword">return</span>(rep.int(<span class="literal">NA</span>, <span class="number">5</span>))</div><div class="line">  &#125;</div><div class="line">  <span class="comment"># 上面的代码中包含return()，表明：</span></div><div class="line">  <span class="comment"># 如果na.rm = FALSE, 则返回rep.int(NA, 5)，</span></div><div class="line">  <span class="comment"># 下面的代码将不会被执行，这与if ... else ...结构有些类似</span></div><div class="line">  </div><div class="line">  <span class="comment"># 我猜测，如果代码中提前出现了return()函数，那么如果执行</span></div><div class="line">  <span class="comment"># 这一语句的条件为真，那么将返回return()返回的值，后面的</span></div><div class="line">  <span class="comment"># 代码将不会被执行</span></div><div class="line">  <span class="comment"># 如果前面的条件为假，那么将执行后面的代码</span></div><div class="line">  </div><div class="line">  <span class="comment"># 对x进行排序，返回排序后的x</span></div><div class="line">  x &lt;- sort(x)</div><div class="line">  <span class="comment"># 求x的长度</span></div><div class="line">  n &lt;- length(x)</div><div class="line">  <span class="comment"># 如果x的长度为0，返回NA, NA, NA, NA, NA</span></div><div class="line">  <span class="keyword">if</span> (n == <span class="number">0</span>)</div><div class="line">    rep.int(<span class="literal">NA</span>, <span class="number">5</span>)</div><div class="line">  <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment"># 如果x的长度不为0，那么执行下面的代码</span></div><div class="line">    <span class="comment"># 下面的代码就是用来计算Tukey五数统计量</span></div><div class="line">    n4 &lt;- floor((n + <span class="number">3</span>) / <span class="number">2</span>) / <span class="number">2</span></div><div class="line">    d &lt;- c(<span class="number">1</span>, n4, (n + <span class="number">1</span>) / <span class="number">2</span>, n + <span class="number">1</span> - n4, n)</div><div class="line">    <span class="number">0.5</span> * (x[floor(d)] + x[ceiling(d)])</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面出现了<code>floor</code>和<code>ceiling</code>两个函数，这里解释一下。这两个函数都是取整函数，<code>floor</code>函数是向下取整，<code>ceiling</code>函数则是向上取整。给个例子吧…</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">floor(c(<span class="number">1.2</span>, <span class="number">3.8</span>, -<span class="number">2.3</span>, -<span class="number">0.7</span>))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1]  1  3 -3 -1</div></pre></td></tr></table></figure>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ceiling(c(<span class="number">1.2</span>, <span class="number">3.8</span>, -<span class="number">2.3</span>, -<span class="number">0.7</span>))</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#&gt; [1]  2  4 -2  0</div></pre></td></tr></table></figure>
+<p>之前很少看函数的源代码，现在发现要把R语言学好，学深入，学习R语言里面函数的写法是非常有必要的。很多时候自己不知道该怎么写，如何写出更有效率的函数，这时候看看R中（包括可怕的CRAN库）有没有实现类似功能的函数，这时候写起来就更加顺畅了。当然，推荐新手直接用别人造的轮子，稳定性，效率基本都有保证。至于老手，可以在别人基础上加以改进，或者自己造轮子。哈哈，我就是个新手，在这里大放厥词的谈老手，不要被笑话啊…</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/R/" rel="tag"># R</a>
+          
+            <a href="/tags/fivenum/" rel="tag"># fivenum</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/07/如何利用Hexo发布Github博客/" rel="next" title="如何利用Hexo发布Github博客">
+                <i class="fa fa-chevron-left"></i> 如何利用Hexo发布Github博客
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/07/关于R语言`if...else`的一点思考/" rel="prev" title="关于R语言`if...else...return`的一点思考">
+                关于R语言`if...else...return`的一点思考 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Leo Lee" />
+            
+              <p class="site-author-name" itemprop="name">Leo Lee</p>
+              <p class="site-description motion-element" itemprop="description">Leo Lee的个人小站</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Leo-Lee15" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:lgz1993leo@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.instagram.com/leeleo93" target="_blank" title="Instagram">
+                    
+                      <i class="fa fa-fw fa-instagram"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Lee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
