@@ -367,6 +367,8 @@
 <p>Although The Simpsons isn’t quite the show it once was, the decline in the show’s latter seasons is more testament to the impossibly high standards set by the earlier seasons than it is an indictment of what the show became.</p>
 <p>If you happen to be interested in how I did this analysis, either to try it yourself or to pick holes in it, the code is below. All analysis was done in R, with the plots done using <code>ggplot2</code> and <code>shiny</code> for interactivity.</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line">simpsons_data &lt;- read_html(<span class="string">"https://www.imdb.com/title/tt0096697/epdate"</span>)</div><div class="line"></div><div class="line">simpsons_rating &lt;- simpsons_data %&gt;%</div><div class="line">  html_table() %&gt;%</div><div class="line">  .[[<span class="number">1</span>]]</div><div class="line"></div><div class="line">n_obs &lt;- nrow(simpsons_rating)</div><div class="line">out &lt;- matrix(<span class="number">0</span>, nrow = n_obs - <span class="number">3</span>, ncol = <span class="number">2</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">2</span>:(n_obs - <span class="number">2</span>)) &#123;</div><div class="line">  n_obs &lt;- nrow(simpsons_rating)</div><div class="line">  mu &lt;- c(mean(simpsons_rating$UserRating[<span class="number">1</span>:i]), mean(simpsons_rating$UserRating[(i+<span class="number">1</span>):n_obs]))</div><div class="line">  sigma &lt;- c(sd(simpsons_rating$UserRating[<span class="number">1</span>:i]), sd(simpsons_rating$UserRating[(i+<span class="number">1</span>):n_obs]))</div><div class="line">  clust &lt;- c(rep(<span class="number">1</span>, i), rep(<span class="number">2</span>, n_obs - i))</div><div class="line">  likelihood &lt;- sum(dnorm(simpsons_rating$UserRating, mu[clust], sigma[clust], log = <span class="literal">TRUE</span>))</div><div class="line">  out[i - <span class="number">1</span>, ] &lt;- c(likelihood, i)</div><div class="line">&#125;</div><div class="line">breakpoint &lt;- out[which(out == max(out[, <span class="number">1</span>])), <span class="number">2</span>]</div></pre></td></tr></table></figure>
+<p>Reference </p>
+<p><a href="https://github.com/nathancunn/nathancunn.github.io/blob/master/_posts/2017-10-26-simpsons-decline.md" target="_blank" rel="external">nathancunn.github.io</a></p>
 
           
         
@@ -936,6 +938,130 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/07/用ggplot2绘制美观的柱状图/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo Lee">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/07/用ggplot2绘制美观的柱状图/" itemprop="url">用ggplot2绘制美观的柱状图</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-07T20:42:39+08:00">
+                2017-10-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>实习的时候看完了一本讲解<code>ggplot2</code>包的书，名字叫做《Guide to CreateBeautiful Graphics in R》。<br>老实说，这本书虽然有很多例子，但讲的很浅，也许这本书的定位就是参考手册吧。^<em>^…看完了里面柱状图的内容，感觉配色不是很美观。<br>于是乎自己动手绘制了以下的两幅柱状图，其中配色方案来自<a href="https://pudding.cool/2017/08/the-office/" target="_blank" rel="external">The Pudding</a>。感觉这个博客<br>图像的配色方案让人赏心悦目，自己就仿照着也画一画^</em>^…</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/07/用ggplot2绘制美观的柱状图/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/07/R语言解决矩阵距离的问题/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1045,130 +1171,6 @@
           <!--noindex-->
           <div class="post-button text-center">
             <a class="btn" href="/2017/10/07/R语言解决矩阵距离的问题/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/07/用ggplot2绘制美观的柱状图/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Leo Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leo Lee">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/07/用ggplot2绘制美观的柱状图/" itemprop="url">用ggplot2绘制美观的柱状图</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-07T20:42:39+08:00">
-                2017-10-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>实习的时候看完了一本讲解<code>ggplot2</code>包的书，名字叫做《Guide to CreateBeautiful Graphics in R》。<br>老实说，这本书虽然有很多例子，但讲的很浅，也许这本书的定位就是参考手册吧。^<em>^…看完了里面柱状图的内容，感觉配色不是很美观。<br>于是乎自己动手绘制了以下的两幅柱状图，其中配色方案来自<a href="https://pudding.cool/2017/08/the-office/" target="_blank" rel="external">The Pudding</a>。感觉这个博客<br>图像的配色方案让人赏心悦目，自己就仿照着也画一画^</em>^…</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/07/用ggplot2绘制美观的柱状图/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
