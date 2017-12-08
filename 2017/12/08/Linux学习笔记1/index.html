@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico?v=5.1.3">
+
+
+
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="好早就听说Linux了，之前看到别人操作总觉得这是黑客用的玩意儿，简直太高端了。后来涉猎了一些计算机的书，才发现我们觉得高大上的东西，只不过是它的命令行而已，Windows也有这东西，就叫做命令行。 7月份去实习才算正式接触到Linux，有点详见恨晚的感觉🐯。实习每天都很忙，周末又要写论文，没时间学习Linux，只有赶鸭子上架了，不会的时候百度，再就是问运维勇哥和兴哥。特别感谢他们，有的时候问问">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux学习笔记">
+<meta property="og:url" content="http://yoursite.com/2017/12/08/Linux学习笔记1/index.html">
+<meta property="og:site_name" content="Leo Lee">
+<meta property="og:description" content="好早就听说Linux了，之前看到别人操作总觉得这是黑客用的玩意儿，简直太高端了。后来涉猎了一些计算机的书，才发现我们觉得高大上的东西，只不过是它的命令行而已，Windows也有这东西，就叫做命令行。 7月份去实习才算正式接触到Linux，有点详见恨晚的感觉🐯。实习每天都很忙，周末又要写论文，没时间学习Linux，只有赶鸭子上架了，不会的时候百度，再就是问运维勇哥和兴哥。特别感谢他们，有的时候问问">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/home/leo/blogger_images/linux1.PNG">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736220.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/160829133573621.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736221.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736222.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736224.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736225.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736226.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736227.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736228.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736229.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736229.png">
+<meta property="og:image" content="http://www.linuxidc.com/upload/2016_08/1608291335736230.png">
+<meta property="og:updated_time" content="2017-12-08T13:26:38.346Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux学习笔记">
+<meta name="twitter:description" content="好早就听说Linux了，之前看到别人操作总觉得这是黑客用的玩意儿，简直太高端了。后来涉猎了一些计算机的书，才发现我们觉得高大上的东西，只不过是它的命令行而已，Windows也有这东西，就叫做命令行。 7月份去实习才算正式接触到Linux，有点详见恨晚的感觉🐯。实习每天都很忙，周末又要写论文，没时间学习Linux，只有赶鸭子上架了，不会的时候百度，再就是问运维勇哥和兴哥。特别感谢他们，有的时候问问">
+<meta name="twitter:image" content="http://yoursite.com/home/leo/blogger_images/linux1.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/12/08/Linux学习笔记1/"/>
+
+
+
+
+
+  <title>Linux学习笔记 | Leo Lee</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Leo Lee</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/Linux学习笔记1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo Lee">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux学习笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-08T08:00:00+08:00">
+                2017-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>好早就听说<strong>Linux</strong>了，之前看到别人操作总觉得这是<strong>黑客</strong>用的玩意儿，简直太高端了。后来涉猎了一些计算机的书，才发现我们觉得高大上的东西，只不过是它的命令行而已，<strong>Windows</strong>也有这东西，就叫做命令行。</p>
+<p>7月份去实习才算正式接触到<strong>Linux</strong>，有点详见恨晚的感觉🐯。实习每天都很忙，周末又要写论文，没时间学习<strong>Linux</strong>，只有赶鸭子上架了，不会的时候百度，再就是问运维勇哥和兴哥。特别感谢他们，有的时候问问题问的我自己都不好意思了😊。现在论文也差不多弄完了，终于可以安心下来学习<strong>Linux</strong>了，于是就有了这篇学习笔记</p>
+<a id="more"></a> 
+<blockquote>
+<p>特别说明：我是通过慕课网上的<code>Linux达人养成计划</code>来学习的，老师讲的特别好，特别适合小白学习。唯一的不足就是视频有些年月了😊<br>视频传送门：<a href="http://www.imooc.com/learn/175" target="_blank" rel="external">Linux达人养成计划I</a></p>
+</blockquote>
+<p>💷先来一个小火箭的特效🙋🏻</p>
+<!--html_preserve--><i class="fa  fa-rocket fa-5x fa-pulse fa-pull-left "></i><!--/html_preserve-->
+<p>哈哈，这是最近发现的一个包，特别拉风！！<!--html_preserve--><i class="fa  fa-hourglass-start fa-3x "></i><!--/html_preserve--></p>
+<p>下面正式进入今天的主题，<strong>Linux</strong>的目录结构。</p>
+<p>大家都比较熟悉<strong>Windows</strong>系统，一般而言，<strong>Windows</strong>系统都会磁盘都会进行分区，最典型就是系统所在的<strong>C盘</strong>。和<strong>Windows</strong>一样，Linux系统也会进行磁盘的分区，但是和Windows并不一样。具体的差别等到了高级篇的时候再说吧。Windows系统中C盘的目录结构一般如下所示：</p>
+<p><img src="/home/leo/blogger_images/linux1.PNG" alt=""></p>
+<p>Linux系统下，如果没有安装图形界面，一般都是通过<code>bash</code>来与内核进行交互。这里推荐使用<code>Xshell</code>，超级好用，谁用谁知道！（<code>Xshell</code>并不是<code>bash</code>，它只是一个终端模拟软件，<a href="https://baike.baidu.com/item/Xshell/5659054?fr=aladdin" target="_blank" rel="external">Xshell可以在Windows界面下用来访问远端不同系统下的服务器，从而比较好的达到远程控制终端的目的。</a>）</p>
+<p>在<code>Xshell</code>中打印根目录下所有的文件，如下所示：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /</div><div class="line">ll -hia</div></pre></td></tr></table></figure>
+<p>输出：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">[root@i*****Z /]<span class="comment"># cd /</span></div><div class="line">[root@i*****Z /]<span class="comment"># ls</span></div><div class="line">bin  boot  data_information  dev  etc  home  lib  lib64  lost+found  media  </div><div class="line">mnt  opt  proc  root  run  sbin  srv  sys  tmp  usr  var</div></pre></td></tr></table></figure>
+<p>可以看到，同样存在很多文件。那么我们不禁要问，这些文件/文件夹是干什么用的呢？</p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736220.png" alt="图片来源：Linux公社"></p>
+<p>上面这幅图给出了根目录下所有的文件及文件夹。其中，不同类型的文件的显示颜色也不同，具体的规则是：</p>
+<ul>
+<li><p><font color="blue" size="3" face="黑体">蓝色</font>：表示目录 </p>
+</li>
+<li><p><font color="#00ffff" size="3">青色</font>：表示链接</p>
+</li>
+<li><p>黑色：表示文件</p>
+</li>
+</ul>
+<p>下面这幅图很好的描绘了<strong>Linux</strong>系统下目录结构图：</p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/160829133573621.png" alt="图片来源：Linux公社"></p>
+<p>下面分别说明这几个目录的含义：</p>
+<h2 id="1、-根"><a href="#1、-根" class="headerlink" title="1、/- 根"></a>1、/- 根</h2><p>每一个文件和目录从根目录开始。<br>只有root用户具有该目录下的写权限。请注意，<code>/root</code>是<code>root</code>用户的主目录，这与<code>/.</code>不一样</p>
+<h2 id="2、-bin中-用户二进制文件"><a href="#2、-bin中-用户二进制文件" class="headerlink" title="2、/bin中 - 用户二进制文件"></a>2、<code>/bin</code>中 - 用户二进制文件</h2><p>包含二进制可执行文件。<br>在单用户模式下，你需要使用的常见<strong>Linux</strong>命令都位于此目录下。系统的所有用户使用的命令都设在这里。<br>例如：<code>ps</code>、<code>ls</code>、<code>ping</code>、<code>grep</code>、<code>cp</code></p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736221.png" alt="图片来源：Linux公社"></p>
+<h2 id="3、-sbin目录-系统二进制文件"><a href="#3、-sbin目录-系统二进制文件" class="headerlink" title="3、/sbin目录 - 系统二进制文件"></a>3、<code>/sbin</code>目录 - 系统二进制文件</h2><p>就像<code>/bin</code>，<code>/sbin</code>同样也包含二进制可执行文件。<br>但是，在这个目录下的Linux命令通常由系统管理员使用，对系统进行维护。例如：<code>iptables</code>、<code>reboot</code>、<code>fdisk</code>、<code>ifconfig</code>、<code>swapon</code>命令</p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736222.png" alt=""></p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736224.png" alt=""></p>
+<h2 id="4、-etc-配置文件"><a href="#4、-etc-配置文件" class="headerlink" title="4、/etc - 配置文件"></a>4、<code>/etc</code> - 配置文件</h2><p>包含所有程序所需的配置文件。<br>也包含了用于启动/停止单个程序的启动和关闭shell脚本。例如：<code>/etc/resolv.conf</code>、<code>/etc/logrotate.conf</code>、<code>/ect/shiny-server.conf</code></p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736225.png" alt=""></p>
+<p>hosts：设备名称（或域名）到ip地址的解析，相当于本地存在的dns功能。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">ping baidu.com</div><div class="line"></div><div class="line"><span class="comment"># output</span></div><div class="line">PING baidu.com (111.13.101.208) 56(84) bytes of data.</div><div class="line">64 bytes from 111.13.101.208 (111.13.101.208): icmp_seq=1 ttl=51 time=29.2 ms</div><div class="line">64 bytes from 111.13.101.208 (111.13.101.208): icmp_seq=2 ttl=51 time=29.1 ms</div></pre></td></tr></table></figure>
+<h2 id="5、-dev-设备文件"><a href="#5、-dev-设备文件" class="headerlink" title="5、/dev - 设备文件"></a>5、<code>/dev</code> - 设备文件</h2><p>包含设备文件。<br>这些包括终端设备、USB或连接到系统的任何设备。例如：<code>/dev/tty1</code>、<code>/dev/usbmon0</code></p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736226.png" alt=""></p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736227.png" alt=""></p>
+<h2 id="6、-proc-进程信息"><a href="#6、-proc-进程信息" class="headerlink" title="6、/proc - 进程信息"></a>6、<code>/proc</code> - 进程信息</h2><p>包含系统进程的相关信息。<br>这是一个虚拟的文件系统，包含有关正在运行的进程的信息。例如：<code>/proc/{pid}</code>目录中包含的与特定pid相关的信息。<br>这是一个虚拟的文件系统，系统资源以文本信息形式存在。例如：<code>/proc/uptime</code></p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736228.png" alt=""></p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736229.png" alt=""></p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736229.png" alt=""></p>
+<h2 id="7、-var-变量文件"><a href="#7、-var-变量文件" class="headerlink" title="7、/var - 变量文件"></a>7、<code>/var</code> - 变量文件</h2><p>var代表变量文件。<br>这个目录下可以找到内容可能增长的文件。<br>这包括 - 系统日志文件（<code>/var/log</code>）;包和数据库文件（<code>/var/lib</code>）;电子邮件（<code>/var/mail</code>）;打印队列（<code>/var/spool</code>）;锁文件（<code>/var/lock</code>）;多次重新启动需要的临时文件（<code>/var/tmp</code>）;</p>
+<h2 id="8、-tmp-临时文件"><a href="#8、-tmp-临时文件" class="headerlink" title="8、/tmp - 临时文件"></a>8、/tmp - 临时文件</h2><p>包含系统和用户创建的临时文件。<br>当系统重新启动时，这个目录下的文件都将被删除。</p>
+<h2 id="9、-usr-用户程序"><a href="#9、-usr-用户程序" class="headerlink" title="9、/usr - 用户程序"></a>9、/usr - 用户程序</h2><p>包含二进制文件、库文件、文档和二级程序的源代码。<br><code>/usr/bin</code>中包含用户程序的二进制文件。如果你在<code>/bin</code>中找不到用户二进制文件，到<code>/usr/bin</code>目录看看。例如：<code>at</code>、<code>awk</code>、<code>cc</code>、<code>less</code>、<code>scp</code>。<br><code>/usr/sbin</code>中包含系统管理员的二进制文件。如果你在/sbin中找不到系统二进制文件，到<code>/usr/sbin</code>目录看看。例如：<code>atd</code>、<code>cron</code>、<code>sshd</code>、<code>useradd</code>、<code>userdel</code>。<br><code>/usr/lib</code>中包含了/usr/bin和/usr/sbin用到的库。<br><code>/usr/local</code>中包含了从源安装的用户程序。例如，当你从源安装<code>Apache</code>，它会在<code>/usr/local/apache2</code>中。</p>
+<h2 id="10、-home-HOME目录"><a href="#10、-home-HOME目录" class="headerlink" title="10、/home - HOME目录"></a>10、<code>/home</code> - HOME目录</h2><p>所有用户用home目录来存储他们的个人档案。<br>例如：<code>/home/john</code>、<code>/home/nikita</code></p>
+<h2 id="11、-boot-引导加载程序文件"><a href="#11、-boot-引导加载程序文件" class="headerlink" title="11、/boot - 引导加载程序文件"></a>11、<code>/boot</code> - 引导加载程序文件</h2><p>包含引导加载程序相关的文件。<br>内核的<code>initrd</code>、<code>vmlinux</code>、<code>grub</code>文件位于<code>/boot</code>下。<br>例如：<code>initrd.img-2.6.32-24-generic</code>、<code>vmlinuz-2.6.32-24-generic</code></p>
+<h2 id="12、-lib-系统库"><a href="#12、-lib-系统库" class="headerlink" title="12、/lib - 系统库"></a>12、<code>/lib</code> - 系统库</h2><p>包含支持位于<code>/bin</code>和<code>/sbin</code>下的二进制文件的库文件.<br>库文件名为 <code>ld*</code>或<code>lib*.so.*</code><br>例如：<code>ld-2.11.1.so</code>，<code>libncurses.so.5.7</code></p>
+<p><img src="http://www.linuxidc.com/upload/2016_08/1608291335736230.png" alt=""></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 我自己的服务器上`\lib`目录的部分文件</span></div><div class="line">java        libaudit.so.1            libcrypt.so.1        libgssrpc.so.4     </div><div class="line">java-1.5.0  libaudit.so.1.0.0        libc.so.6            libgssrpc.so.4.2   </div><div class="line">java-1.6.0  libauparse.so.0          libdb-5.3.so         libk5crypto.so.3   </div><div class="line">java-1.7.0  libauparse.so.0.0.0      libdb-5.so           libk5crypto.so.3.1 </div><div class="line">java-1.8.0  libBrokenLocale-2.17.so  libdl-2.17.so        libkdb5.so.8       </div><div class="line">java-ext    libBrokenLocale.so.1     libdl.so.2           libkdb5.so.8.0</div></pre></td></tr></table></figure>
+<h2 id="13、-opt-可选的附加应用程序"><a href="#13、-opt-可选的附加应用程序" class="headerlink" title="13、/opt - 可选的附加应用程序"></a>13、<code>/opt</code> - 可选的附加应用程序</h2><p>opt代表可选的。<br>包含从个别厂商的附加应用程序。<br>附加应用程序应该安装在/opt/或者/opt/的子目录下。</p>
+<h2 id="14、-mnt-挂载目录"><a href="#14、-mnt-挂载目录" class="headerlink" title="14、/mnt - 挂载目录"></a>14、<code>/mnt</code> - 挂载目录</h2><p>临时安装目录，系统管理员可以挂载文件系统。</p>
+<h2 id="15、-media-可移动媒体设备"><a href="#15、-media-可移动媒体设备" class="headerlink" title="15、/media - 可移动媒体设备"></a>15、<code>/media</code> - 可移动媒体设备</h2><p>用于挂载可移动设备的临时目录。<br>举例来说，挂载CD-ROM的/media/cdrom，挂载软盘驱动器的/media/floppy;</p>
+<h2 id="16、-srv-服务数据"><a href="#16、-srv-服务数据" class="headerlink" title="16、/srv - 服务数据"></a>16、<code>/srv</code> - 服务数据</h2><p>srv代表服务。<br>包含服务器特定服务相关的数据。<br>例如，<code>/srv/cvs</code>包含<code>cvs</code>相关的数据。</p>
+<p>附：<strong>Linux</strong>系统中与用户相关的几个目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /  <span class="comment"># 定位到根目录，/表示根目录</span></div><div class="line"><span class="built_in">cd</span> ~  <span class="comment"># 定位到当前用户的家目录，例如/home/owner</span></div><div class="line"><span class="built_in">cd</span>    <span class="comment"># 同上</span></div><div class="line"><span class="built_in">cd</span> -  <span class="comment"># 进入上次目录</span></div><div class="line"><span class="built_in">cd</span> .. <span class="comment"># 进入上一级目录</span></div><div class="line"><span class="built_in">cd</span> .  <span class="comment"># 进入当前目录</span></div></pre></td></tr></table></figure>
+<p>参考：</p>
+<ul>
+<li><a href="http://www.linuxidc.com/Linux/2016-08/134701.htm" target="_blank" rel="external">Linux公社</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/26/在博客中嵌入shiny应用/" rel="next" title="When did the golden age of The Simpsons end?">
+                <i class="fa fa-chevron-left"></i> When did the golden age of The Simpsons end?
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpg"
+                alt="Leo Lee" />
+            
+              <p class="site-author-name" itemprop="name">Leo Lee</p>
+              <p class="site-description motion-element" itemprop="description">Leo Lee的个人小站</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/Leo-Lee15" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:lgz1993leo@gmail.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i></a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://www.instagram.com/leeleo93" target="_blank" title="Instagram">
+                    
+                      <i class="fa fa-fw fa-instagram"></i></a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、-根"><span class="nav-number">1.</span> <span class="nav-text">1、/- 根</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、-bin中-用户二进制文件"><span class="nav-number">2.</span> <span class="nav-text">2、/bin中 - 用户二进制文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、-sbin目录-系统二进制文件"><span class="nav-number">3.</span> <span class="nav-text">3、/sbin目录 - 系统二进制文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、-etc-配置文件"><span class="nav-number">4.</span> <span class="nav-text">4、/etc - 配置文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、-dev-设备文件"><span class="nav-number">5.</span> <span class="nav-text">5、/dev - 设备文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、-proc-进程信息"><span class="nav-number">6.</span> <span class="nav-text">6、/proc - 进程信息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、-var-变量文件"><span class="nav-number">7.</span> <span class="nav-text">7、/var - 变量文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、-tmp-临时文件"><span class="nav-number">8.</span> <span class="nav-text">8、/tmp - 临时文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、-usr-用户程序"><span class="nav-number">9.</span> <span class="nav-text">9、/usr - 用户程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#10、-home-HOME目录"><span class="nav-number">10.</span> <span class="nav-text">10、/home - HOME目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#11、-boot-引导加载程序文件"><span class="nav-number">11.</span> <span class="nav-text">11、/boot - 引导加载程序文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#12、-lib-系统库"><span class="nav-number">12.</span> <span class="nav-text">12、/lib - 系统库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#13、-opt-可选的附加应用程序"><span class="nav-number">13.</span> <span class="nav-text">13、/opt - 可选的附加应用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#14、-mnt-挂载目录"><span class="nav-number">14.</span> <span class="nav-text">14、/mnt - 挂载目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#15、-media-可移动媒体设备"><span class="nav-number">15.</span> <span class="nav-text">15、/media - 可移动媒体设备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#16、-srv-服务数据"><span class="nav-number">16.</span> <span class="nav-text">16、/srv - 服务数据</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Leo Lee</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

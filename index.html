@@ -266,6 +266,131 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/08/Linux学习笔记1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Leo Lee">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo Lee">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/12/08/Linux学习笔记1/" itemprop="url">Linux学习笔记</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-08T08:00:00+08:00">
+                2017-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>好早就听说<strong>Linux</strong>了，之前看到别人操作总觉得这是<strong>黑客</strong>用的玩意儿，简直太高端了。后来涉猎了一些计算机的书，才发现我们觉得高大上的东西，只不过是它的命令行而已，<strong>Windows</strong>也有这东西，就叫做命令行。</p>
+<p>7月份去实习才算正式接触到<strong>Linux</strong>，有点详见恨晚的感觉🐯。实习每天都很忙，周末又要写论文，没时间学习<strong>Linux</strong>，只有赶鸭子上架了，不会的时候百度，再就是问运维勇哥和兴哥。特别感谢他们，有的时候问问题问的我自己都不好意思了😊。现在论文也差不多弄完了，终于可以安心下来学习<strong>Linux</strong>了，于是就有了这篇学习笔记</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/08/Linux学习笔记1/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/26/在博客中嵌入shiny应用/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -336,41 +461,14 @@
 
       
         
-          
-            <p>It’d be difficult to argue against the fact that The Simpsons isn’t quite the show it once was. Even just a quick glance at the IMDb ratings is enough to see that the show is routinely not hitting the highs it did so regularly in the earlier seasons.</p>
-<center><br><img src="../figure/source/simpsons-decline/original_ratings.svg" style="width:100%"><br></center>
-
-<p>I’d suggest that the scale of the decline is likely even worse than it appears here due to <a href="https://en.wikipedia.org/wiki/Survivorship_bias" target="_blank" rel="external">survivorship bias</a>—presumably most of the people rating episodes in season 20 are those who enjoyed seasons 1-19—although I’m not sure how one might easily go about correcting for that.</p>
-<p>The decline was much like <a href="https://youtu.be/vu_qwJiAhGY?t=90" target="_blank" rel="external">Fox’s transition to a hardcore sex channel</a>: so gradual that you didn’t notice it happening, making it difficult to pinpoint exactly when the heyday of The Simpsons came to an end. The general consensus seems to be somewhere around season nine or ten, with some pinpointing <em>The Principal and the Pauper</em> (S09E02—the Armin Tamzarian episode) as the watershed moment, with even Harry Shearer (the voice of Tamzarian/Skinner) slamming it as disrespectful to the fans and Matt Groening listing the episode as a mistake and one of his least favourite episodes. Personally I disagree with this being the end of The Simpsons as we knew it, not only because that season had some great episodes, such as <em>The Cartridge Family</em>, but also the episode gave us one of my <a href="https://www.youtube.com/watch?v=YDqYVNQIHRg" target="_blank" rel="external">favourite Simpsons scenes</a>.</p>
-<p>But if not then, then when did the golden age of The Simpsons come to an end? If we go back to look at the ratings of the show we can see they clearly arise from a bimodal distribution; that is, there is a group of episodes rated in and around 7/10 and an another group with ratings around 8/10.</p>
-<center><br><img src="../figure/source/simpsons-decline/original_densities.svg" style="width:100%"><br></center>
-
-<p>We know that many of the episodes in this higher rated group were part of the earlier seasons, although some of the later episodes will be in there too. In order to separate these out we could consider performing cluster analysis on the data, essentially finding a way of grouping the episodes so that those with similar ratings are placed in groups together. A standard clustering approach would just group good episodes and bad episodes. However, I want to alter this slightly in that I only want a group to be made up of a single contiguous group of episodes; basically, if the episodes of season 4 are in the same group as the episodes of season 6, then the episodes of season 5 must also be in that group. This means we can define the golden age of The Simpsons as a single stretch of persistently high quality episodes. Other than being a sensible thing to do, this also simplifies the analysis greatly, as while there are many ways to allocate episodes to two groups, uncovering two contiguous groups simply amounts to finding the episode where the first group ends. Ideally we would like to find the episode for which there is the greatest difference between the ratings of all previous episodes and all subsequent episodes.</p>
-<p>In order to see this a bit clearer consider the effect of setting this threshold below:</p>
-<p style="width: 100%; height: 0px; padding-bottom: 75%; position: relative;"><br>    <iframe style="width: 100%; height: 100%; position: absolute; left: 0px; top: 0px;" src="https://nathcunn.shinyapps.io/simpsons_decline/" frameborder="0" allowfullscreen><br>    </iframe><br></p>
-
-<p>The effect of choosing the wrong episode is clear in that we’ll end up with groups which are not clearly separated. If we set it too early too many good episodes get put into the <em>bad</em> category, making it better and, likewise if we set it too late then we make the golden age seem worse.</p>
-<p>In order to choose the correct episode, we assume episode ratings in each group arise from distinct <em>Gaussian</em> distributions—roughly meaning you would expect ratings to be pretty close to some mean value, the further away from this mean you go the less likely that rating is to occur regardless whether you go above or below the mean. Grouping the episodes then becomes:</p>
-<ul>
-<li>Pick an episode as the threshold between the golden age and the later seasons</li>
-<li>Calculate the mean and standard deviation of the ratings for all episodes up to the current threshold episode. Do the same for all subsequent episodes</li>
-<li>Using these values calculate the likelihood of all the episode ratings—the probability of observing the data you have observed assuming that the data arise from a Gaussian distribution with the means and standard deviations calculated above.</li>
-<li>Repeat the above steps for a different threshold until you find the grouping which gives the greatest likelihood value.</li>
-</ul>
-<p>I coded this up in R (below) and checked for every possible combination (the code runs basically instantaneously so it wasn’t worth trying to be smart with this). The episode that the data best supported being the end of the golden age is episode 214, or season 10 episode 11, <em>Wild Barts can’t be Broken</em>, meaning <em>The Principal and the Pauper</em> (S09E02) didn’t mark the end of The Simpsons best days.</p>
-<center><br><img src="../figure/source/simpsons-decline/ratings.svg" style="width:100%"><br></center>
-
-<center><br><img src="../figure/source/simpsons-decline/densities.svg" style="width:100%"><br></center>
-
-<p>With a rating of 7.7 <em>Wild Barts can’t be Broken</em> is the episode where a curfew is imposed on the children of Springfield after Homer goes on a drunken spree. The next episode, <em>Sunday, Cruddy Sunday</em>, in which Homer goes to the Superbowl has a rating of 6.9, quite a bit below the average rating of earlier episodes, meaning counting it as a golden age episode would only serve to make the golden age worse minimising the differences between the two groups.</p>
-<p>It’s remarkable that the show managed to go for over nine seasons, and over 200 episodes, with an average rating of 8.2. The latter seasons, in contrast, have an average rating of 6.9, with only three episodes in the latter 400+ episodes achieving a rating higher than the average golden age episode—those episodes being <em>Trilogy of Error</em>, <em>Holidays of Futured Passed</em>, and <em>Barthood</em>. Given that the ratings approximately follow a Gaussian distribution, we expect (and, indeed, observe) that roughly half of the golden age episodes exceeded this mean value.</p>
-<p>Although The Simpsons isn’t quite the show it once was, the decline in the show’s latter seasons is more testament to the impossibly high standards set by the earlier seasons than it is an indictment of what the show became.</p>
-<p>If you happen to be interested in how I did this analysis, either to try it yourself or to pick holes in it, the code is below. All analysis was done in R, with the plots done using <code>ggplot2</code> and <code>shiny</code> for interactivity.</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(rvest)</div><div class="line">simpsons_data &lt;- read_html(<span class="string">"https://www.imdb.com/title/tt0096697/epdate"</span>)</div><div class="line"></div><div class="line">simpsons_rating &lt;- simpsons_data %&gt;%</div><div class="line">  html_table() %&gt;%</div><div class="line">  .[[<span class="number">1</span>]]</div><div class="line"></div><div class="line">n_obs &lt;- nrow(simpsons_rating)</div><div class="line">out &lt;- matrix(<span class="number">0</span>, nrow = n_obs - <span class="number">3</span>, ncol = <span class="number">2</span>)</div><div class="line"></div><div class="line"><span class="keyword">for</span>(i <span class="keyword">in</span> <span class="number">2</span>:(n_obs - <span class="number">2</span>)) &#123;</div><div class="line">  n_obs &lt;- nrow(simpsons_rating)</div><div class="line">  mu &lt;- c(mean(simpsons_rating$UserRating[<span class="number">1</span>:i]), mean(simpsons_rating$UserRating[(i+<span class="number">1</span>):n_obs]))</div><div class="line">  sigma &lt;- c(sd(simpsons_rating$UserRating[<span class="number">1</span>:i]), sd(simpsons_rating$UserRating[(i+<span class="number">1</span>):n_obs]))</div><div class="line">  clust &lt;- c(rep(<span class="number">1</span>, i), rep(<span class="number">2</span>, n_obs - i))</div><div class="line">  likelihood &lt;- sum(dnorm(simpsons_rating$UserRating, mu[clust], sigma[clust], log = <span class="literal">TRUE</span>))</div><div class="line">  out[i - <span class="number">1</span>, ] &lt;- c(likelihood, i)</div><div class="line">&#125;</div><div class="line">breakpoint &lt;- out[which(out == max(out[, <span class="number">1</span>])), <span class="number">2</span>]</div></pre></td></tr></table></figure>
-<p>Reference </p>
-<p><a href="https://github.com/nathancunn/nathancunn.github.io/blob/master/_posts/2017-10-26-simpsons-decline.md" target="_blank" rel="external">nathancunn.github.io</a></p>
-
-          
+          <p>It’d be difficult to argue against the fact that The Simpsons isn’t quite the show it once was. Even just a quick glance at the IMDb ratings is enough to see that the show is routinely not hitting the highs it did so regularly in the earlier seasons.</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/10/26/在博客中嵌入shiny应用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1346,130 +1444,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/07/如何查找数据框中重复的数据/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Leo Lee">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Leo Lee">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/10/07/如何查找数据框中重复的数据/" itemprop="url">如何查找数据框中重复的数据</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-07T20:42:39+08:00">
-                2017-10-07
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>今天看到群里面有童鞋问了一个问题：如何查找数据框中的重复值？这个问题问的非常好，而且很有趣。查找重复值一般大家都会想到<code>unique()</code>函数，<code>distinct()</code>函数，<code>duplicated()</code>函数等等。但是这些函数一般只能找出每组重复数据中的一个，并不能指出哪些数据是重复的。怎么办？有个童鞋给出了一个非常有创意的解决方案。下面来看看代码：</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/10/07/如何查找数据框中重复的数据/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/10/07/R语言蒙特卡罗模拟计算圆周率/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1635,7 +1609,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1657,7 +1631,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
