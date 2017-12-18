@@ -336,8 +336,7 @@
 
       
         
-          
-            <p>R语言绘图字体的设置方案主要有两种：</p>
+          <p>R语言绘图字体的设置方案主要有两种：</p>
 <ul>
 <li><ol>
 <li><code>windowsFont()</code>函数和<code>windowsFonts()</code>函数</li>
@@ -348,195 +347,13 @@
 </ol>
 </li>
 </ul>
-<h2 id="1-windowsFont-s-函数"><a href="#1-windowsFont-s-函数" class="headerlink" title="1. windowsFont(s)()函数"></a>1. <code>windowsFont(s)()</code>函数</h2><p>用法如下：</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">windowsFont(family = <span class="string">""</span>) <span class="comment"># 加载系统中已存在的某个字体</span></div><div class="line">windowsFonts(huawenxinwei = windowsFont(family = <span class="string">"STXinwei"</span>)) <span class="comment"># 对这些字体进行重命名，以便R能够直接使用</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>这里是常见的中英文字体的中英文对照表</p>
-</blockquote>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">字体中文名</th>
-<th style="text-align:center">字体英文名</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">黑体</td>
-<td style="text-align:center">SimHei</td>
-</tr>
-<tr>
-<td style="text-align:center">宋体</td>
-<td style="text-align:center">SimSun</td>
-</tr>
-<tr>
-<td style="text-align:center">新宋体</td>
-<td style="text-align:center">NSimSun</td>
-</tr>
-<tr>
-<td style="text-align:center">仿宋</td>
-<td style="text-align:center">FangSong</td>
-</tr>
-<tr>
-<td style="text-align:center">楷体</td>
-<td style="text-align:center">KaiTi</td>
-</tr>
-<tr>
-<td style="text-align:center">仿宋_GB2312</td>
-<td style="text-align:center">FangSong_GB2312</td>
-</tr>
-<tr>
-<td style="text-align:center">楷体_GB2312</td>
-<td style="text-align:center">KaiTi_GB2312</td>
-</tr>
-<tr>
-<td style="text-align:center">微软正黑体</td>
-<td style="text-align:center">Microsoft JhengHei</td>
-</tr>
-<tr>
-<td style="text-align:center">微软雅黑</td>
-<td style="text-align:center">Microsoft YaHei</td>
-</tr>
-<tr>
-<td style="text-align:center">新细明体</td>
-<td style="text-align:center">PMingLiU</td>
-</tr>
-<tr>
-<td style="text-align:center">细明体</td>
-<td style="text-align:center">MingLiU</td>
-</tr>
-<tr>
-<td style="text-align:center">标楷体</td>
-<td style="text-align:center">DFKai-SB</td>
-</tr>
-<tr>
-<td style="text-align:center">隶书</td>
-<td style="text-align:center">LiSu</td>
-</tr>
-<tr>
-<td style="text-align:center">幼圆</td>
-<td style="text-align:center">YouYuan</td>
-</tr>
-<tr>
-<td style="text-align:center">华文细黑</td>
-<td style="text-align:center">STXihei</td>
-</tr>
-<tr>
-<td style="text-align:center">华文楷体</td>
-<td style="text-align:center">STKaiti</td>
-</tr>
-<tr>
-<td style="text-align:center">华文宋体</td>
-<td style="text-align:center">STSong</td>
-</tr>
-<tr>
-<td style="text-align:center">华文中宋</td>
-<td style="text-align:center">STZhongsong</td>
-</tr>
-<tr>
-<td style="text-align:center">华文仿宋</td>
-<td style="text-align:center">STFangsong</td>
-</tr>
-<tr>
-<td style="text-align:center">方正舒体</td>
-<td style="text-align:center">FZShuTi</td>
-</tr>
-<tr>
-<td style="text-align:center">方正姚体</td>
-<td style="text-align:center">FZYaoti</td>
-</tr>
-<tr>
-<td style="text-align:center">华文彩云</td>
-<td style="text-align:center">STCaiyun</td>
-</tr>
-<tr>
-<td style="text-align:center">华文琥珀</td>
-<td style="text-align:center">STHupo</td>
-</tr>
-<tr>
-<td style="text-align:center">华文隶书</td>
-<td style="text-align:center">STLiti</td>
-</tr>
-<tr>
-<td style="text-align:center">华文行楷</td>
-<td style="text-align:center">STXingkai</td>
-</tr>
-<tr>
-<td style="text-align:center">华文新魏</td>
-<td style="text-align:center">STXinwei</td>
-</tr>
-</tbody>
-</table>
-<p>windows系统常见的英文字体有：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">英文字体</th>
-<th style="text-align:center">说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">Arial</td>
-<td style="text-align:center">常用</td>
-</tr>
-<tr>
-<td style="text-align:center">Times New Roman</td>
-<td style="text-align:center">常用于学术期刊</td>
-</tr>
-<tr>
-<td style="text-align:center">Lucida Caligraphy</td>
-<td style="text-align:center">漂亮的手写体</td>
-</tr>
-<tr>
-<td style="text-align:center">Helvetica</td>
-<td style="text-align:center">适合阅读</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">windowsFonts(</div><div class="line">  <span class="comment"># 中文字体</span></div><div class="line">  lishu = windowsFont(family = <span class="string">"LiSu"</span>),            <span class="comment"># 隶书</span></div><div class="line">  yahei = windowsFont(family = <span class="string">"Microsoft YaHei"</span>), <span class="comment"># 微软雅黑</span></div><div class="line">  xinwei = windowsFont(family = <span class="string">"STXingwei"</span>),      <span class="comment"># 华文新魏</span></div><div class="line">  kaiti = windowsFont(family = <span class="string">"KaiTi"</span>),           <span class="comment"># 楷体</span></div><div class="line">  heiti = windowsFont(family = <span class="string">"SimHei"</span>),          <span class="comment"># 黑体</span></div><div class="line">  <span class="comment"># 英文字体</span></div><div class="line">  arial = windowsFont(family = <span class="string">"Arial"</span>),             <span class="comment"># Arial字体</span></div><div class="line">  newman = windowsFont(family = <span class="string">"Times New Roman"</span>),  <span class="comment">#Times New Roman字体   </span></div><div class="line">  hand = windowsFont(family = <span class="string">"Lucida Calligraphy"</span>), <span class="comment"># Lucida手写体</span></div><div class="line">  Helvetica = windowsFont(family = <span class="string">"Helvetica"</span>)      <span class="comment"># 印刷体</span></div><div class="line">  )          </div><div class="line"></div><div class="line"></div><div class="line">ggplot(mtcars) +</div><div class="line">  geom_point(aes(x = mpg, y = drat)) +</div><div class="line">  <span class="comment"># 中文字体</span></div><div class="line">  annotate(geom = <span class="string">"text"</span>, x = <span class="number">15</span>, y = <span class="number">4.5</span>, label = <span class="string">"隶书"</span>, size = <span class="number">18</span>, color = <span class="string">"tomato2"</span>, family = <span class="string">"lishu"</span>) +</div><div class="line">  annotate(geom = <span class="string">"text"</span>, x = <span class="number">26</span>, y = <span class="number">4.5</span>, label = <span class="string">"微软雅黑"</span>, size = <span class="number">18</span>, color = <span class="string">"tomato2"</span>, family = <span class="string">"yahei"</span>) +</div><div class="line">  annotate(geom = <span class="string">"text"</span>, x = <span class="number">15</span>, y = <span class="number">3.8</span>, label = <span class="string">"楷体"</span>, size = <span class="number">18</span>, color = <span class="string">"tomato2"</span>, family = <span class="string">"kaiti"</span>) +</div><div class="line">  annotate(geom = <span class="string">"text"</span>, x = <span class="number">25</span>, y = <span class="number">3.8</span>, label = <span class="string">"黑体"</span>, size = <span class="number">18</span>, color = <span class="string">"tomato2"</span>, family = <span class="string">"heiti"</span>) +</div><div class="line">  annotate(geom = <span class="string">"text"</span>, x = <span class="number">18</span>, y = <span class="number">3.0</span>, label = <span class="string">"华文新魏"</span>, size = <span class="number">18</span>, color = <span class="string">"tomato2"</span>, family = <span class="string">"xinwei"</span>) +</div><div class="line">  <span class="comment"># 英文字体</span></div><div class="line">  annotate(geom = <span class="string">"text"</span>, x = <span class="number">18</span>, y = <span class="number">3.5</span>, label = <span class="string">"Arial Font"</span>, size = <span class="number">12</span>, color = <span class="string">"tomato2"</span>, family = <span class="string">"arial"</span>) +</div><div class="line">  annotate(geom = <span class="string">"text"</span>, x = <span class="number">20</span>, y = <span class="number">4.8</span>, label = <span class="string">"Times New Roman"</span>, size = <span class="number">12</span>, color = <span class="string">"tomato2"</span>, family = <span class="string">"newman"</span>) +</div><div class="line">  annotate(geom = <span class="string">"text"</span>, x = <span class="number">30</span>, y = <span class="number">3.0</span>, label = <span class="string">"Lucida"</span>, size = <span class="number">12</span>, color = <span class="string">"tomato2"</span>, family = <span class="string">"hand"</span>) +</div><div class="line">  annotate(geom = <span class="string">"text"</span>, x = <span class="number">30</span>, y = <span class="number">3.5</span>, label = <span class="string">"Helvetica"</span>, size = <span class="number">12</span>, color = <span class="string">"tomato2"</span>, family = <span class="string">"Helvetica"</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://guangzheng.site/shiny-examples-master/blog_images/font_fig1.png" alt=""></p>
-<h2 id="2-showtext包"><a href="#2-showtext包" class="headerlink" title="2. showtext包"></a>2. <code>showtext</code>包</h2><p>下面以<code>showtext</code>包中自带的例子加以说明。</p>
-<blockquote>
-<p><strong>目前<code>Rstudio</code>包中的默认绘图设备并不支持<code>showtext</code>包，所以想要得到类似下图的效果，请直接在R控制台中操作或者打开<code>x()</code>/<code>windows()</code>绘图设备</strong></p>
-</blockquote>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(showtext)</div><div class="line"><span class="comment">## Loading Google fonts (http://www.google.com/fonts)</span></div><div class="line">font_add_google(<span class="string">"Gochi Hand"</span>, <span class="string">"gochi"</span>)</div><div class="line">font_add_google(<span class="string">"Schoolbell"</span>, <span class="string">"bell"</span>)</div><div class="line"></div><div class="line"><span class="comment">## Automatically use showtext to render text</span></div><div class="line">showtext_auto()</div><div class="line"></div><div class="line">set.seed(<span class="number">123</span>)</div><div class="line"><span class="comment">## Manually open a graphics device if you run this code in RStudio</span></div><div class="line"><span class="comment">## x11()</span></div><div class="line">hist(rnorm(<span class="number">1000</span>), breaks = <span class="number">30</span>, col = <span class="string">"steelblue"</span>, border = <span class="string">"white"</span>,</div><div class="line">     main = <span class="string">""</span>, xlab = <span class="string">""</span>, ylab = <span class="string">""</span>)</div><div class="line">title(<span class="string">"Histogram of Normal Random Numbers"</span>, family = <span class="string">"bell"</span>, cex.main = <span class="number">2</span>)</div><div class="line">title(ylab = <span class="string">"Frequency"</span>, family = <span class="string">"gochi"</span>, cex.lab = <span class="number">2</span>)</div><div class="line">text(<span class="number">2</span>, <span class="number">70</span>, <span class="string">"N = 1000"</span>, family = <span class="string">"bell"</span>, cex = <span class="number">2.5</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://guangzheng.site/shiny-examples-master/blog_images/showtext_fig1.png" alt=""></p>
-<h3 id="具体的用法"><a href="#具体的用法" class="headerlink" title="具体的用法"></a>具体的用法</h3><ul>
-<li><ol>
-<li>(*) 加载字体</li>
-</ol>
-</li>
-<li><ol>
-<li>打开绘图设备</li>
-</ol>
-</li>
-<li><ol>
-<li>(*) 申明使用<code>showtext</code>包来渲染字体</li>
-</ol>
-</li>
-<li><ol>
-<li>绘图</li>
-</ol>
-</li>
-<li><ol>
-<li>关闭绘图设备</li>
-</ol>
-</li>
-</ul>
-<blockquote>
-<p>如果想要全局应用<code>showtext</code>包，那么应该使用<code>showtext_auto()</code>函数</p>
-</blockquote>
-<p>载入字体</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">font_add(family = <span class="string">"&lt;family_name&gt;"</span>, regular = <span class="string">"/path/to/font/file"</span>) <span class="comment"># regurlar即字体的路径</span></div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(showtext)</div><div class="line"><span class="comment">#&gt; Loading required package: sysfonts</span></div><div class="line"><span class="comment">#&gt; Loading required package: showtextdb</span></div><div class="line"></div><div class="line"><span class="comment">## 载入黑体</span></div><div class="line">font_add(<span class="string">"heiti"</span>, regular = <span class="string">"simhei.ttf"</span>)</div><div class="line"><span class="comment">## 载入Constantia字体</span></div><div class="line">font_add(<span class="string">"constan"</span>, regular = <span class="string">"constan.ttf"</span>, italic = <span class="string">"constani.ttf"</span>)</div></pre></td></tr></table></figure>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">showtext_auto()</div><div class="line"></div><div class="line"><span class="keyword">library</span>(ggplot2)</div><div class="line">p &lt;- ggplot(<span class="literal">NULL</span>, aes(x = <span class="number">1</span>, y = <span class="number">1</span>)) + </div><div class="line">  ylim(<span class="number">0.8</span>, <span class="number">1.2</span>) +</div><div class="line">  theme(</div><div class="line">    axis.title = element_blank(), axis.ticks = element_blank(),</div><div class="line">    axis.text = element_blank()</div><div class="line">  ) +</div><div class="line">  annotate(</div><div class="line">    <span class="string">"text"</span>, <span class="number">1</span>, <span class="number">1.1</span>, family = <span class="string">"heiti"</span>, size = <span class="number">15</span>,</div><div class="line">    label = <span class="string">"你好，世界！"</span></div><div class="line">  ) +</div><div class="line">  annotate(</div><div class="line">    <span class="string">"text"</span>, <span class="number">1</span>, <span class="number">0.9</span>, label = <span class="string">'Chinese for "Hello, world!"'</span>,</div><div class="line">    family = <span class="string">"constan"</span>, fontface = <span class="string">"italic"</span>, size = <span class="number">12</span></div><div class="line">  )</div><div class="line"></div><div class="line"><span class="comment">## PNG设备</span></div><div class="line">ggsave(<span class="string">"showtext-example-4.png"</span>, width = <span class="number">7</span>, height = <span class="number">4</span>, dpi = <span class="number">96</span>)</div><div class="line"></div><div class="line"><span class="comment">## 关闭showtext字体设置</span></div><div class="line">showtext_auto(<span class="literal">FALSE</span>)</div></pre></td></tr></table></figure>
-<p><img src="http://guangzheng.site/shiny-examples-master/blog_images/showtext_fig2.png" alt=""></p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
-<li><a href="https://mirrors.tuna.tsinghua.edu.cn/CRAN/web/packages/showtext/vignettes/introduction.html" target="_blank" rel="external">showtext: Using Fonts More Easily in R Graphs</a></li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2017/12/18/如何调整R语言绘图的字体/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
