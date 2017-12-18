@@ -84,7 +84,7 @@
 <meta property="og:image" content="http://guangzheng.site/shiny-examples-master/blog_images/font_fig1.png">
 <meta property="og:image" content="http://guangzheng.site/shiny-examples-master/blog_images/showtext_fig1.png">
 <meta property="og:image" content="http://guangzheng.site/shiny-examples-master/blog_images/showtext_fig2.png">
-<meta property="og:updated_time" content="2017-12-18T13:33:37.044Z">
+<meta property="og:updated_time" content="2017-12-18T13:35:40.620Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="如何调整R语言绘图的字体">
 <meta name="twitter:description" content="R语言绘图字体的设置方案主要有两种：  windowsFont()函数和windowsFonts()函数  sysfonts, showtext等第三方包">
@@ -501,25 +501,15 @@
 <figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">library</span>(showtext)</div><div class="line"><span class="comment">## Loading Google fonts (http://www.google.com/fonts)</span></div><div class="line">font_add_google(<span class="string">"Gochi Hand"</span>, <span class="string">"gochi"</span>)</div><div class="line">font_add_google(<span class="string">"Schoolbell"</span>, <span class="string">"bell"</span>)</div><div class="line"></div><div class="line"><span class="comment">## Automatically use showtext to render text</span></div><div class="line">showtext_auto()</div><div class="line"></div><div class="line">set.seed(<span class="number">123</span>)</div><div class="line"><span class="comment">## Manually open a graphics device if you run this code in RStudio</span></div><div class="line"><span class="comment">## x11()</span></div><div class="line">hist(rnorm(<span class="number">1000</span>), breaks = <span class="number">30</span>, col = <span class="string">"steelblue"</span>, border = <span class="string">"white"</span>,</div><div class="line">     main = <span class="string">""</span>, xlab = <span class="string">""</span>, ylab = <span class="string">""</span>)</div><div class="line">title(<span class="string">"Histogram of Normal Random Numbers"</span>, family = <span class="string">"bell"</span>, cex.main = <span class="number">2</span>)</div><div class="line">title(ylab = <span class="string">"Frequency"</span>, family = <span class="string">"gochi"</span>, cex.lab = <span class="number">2</span>)</div><div class="line">text(<span class="number">2</span>, <span class="number">70</span>, <span class="string">"N = 1000"</span>, family = <span class="string">"bell"</span>, cex = <span class="number">2.5</span>)</div></pre></td></tr></table></figure>
 <p><img src="http://guangzheng.site/shiny-examples-master/blog_images/showtext_fig1.png" alt=""></p>
 <h3 id="具体的用法"><a href="#具体的用法" class="headerlink" title="具体的用法"></a>具体的用法</h3><ul>
-<li><ol>
-<li>(*) 加载字体</li>
-</ol>
+<li><p>(*) 加载字体</p>
 </li>
-<li><ol>
-<li>打开绘图设备</li>
-</ol>
+<li><p>打开绘图设备</p>
 </li>
-<li><ol>
-<li>(*) 申明使用<code>showtext</code>包来渲染字体</li>
-</ol>
+<li><p>(*) 申明使用<code>showtext</code>包来渲染字体</p>
 </li>
-<li><ol>
-<li>绘图</li>
-</ol>
+<li><p>绘图</p>
 </li>
-<li><ol>
-<li>关闭绘图设备</li>
-</ol>
+<li><p>关闭绘图设备</p>
 </li>
 </ul>
 <blockquote>
