@@ -308,6 +308,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -336,121 +358,16 @@
 
       
         
-          
-            <p>Linux课程其实早就学习完了，但是学习笔记才写了一篇博客，真是惭愧！说来也是人懒，晚上都去追剧去了，无心学习。该罚!</p>
+          <p>Linux课程其实早就学习完了，但是学习笔记才写了一篇博客，真是惭愧！说来也是人懒，晚上都去追剧去了，无心学习。该罚!</p>
 <p>言归正传！这一篇博客讲的是有关Linux系统中的目录处理命令。</p>
 <p>一般而言，Linux系统中的命令基本上都遵循下面的格式：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">命令 [选项] [参数]</div></pre></td></tr></table></figure>
-<p>注意：</p>
-<ul>
-<li>个别命令不遵循此格式</li>
-<li>当有多个选项时，可以写在一起</li>
-<li>简化选项与完整选项，<code>-a</code>一般等同于<code>--all</code></li>
-</ul>
-<h2 id="1-查询目录中的内容：ls"><a href="#1-查询目录中的内容：ls" class="headerlink" title="1. 查询目录中的内容：ls"></a>1. 查询目录中的内容：<code>ls</code></h2><p>基本格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ls [选项] [参数]</div></pre></td></tr></table></figure>
-<p>选项：</p>
-<ul>
-<li><code>-a</code> 显示所有的文件，包括隐藏文件（隐藏文件以<code>.</code>开头，例如<code>.bash_history</code>）</li>
-<li><code>-l</code> 查看详细信息</li>
-<li><code>-d</code> 显示目录属性</li>
-<li><code>-h</code> 人性化显示文件大小（默认显示文件的字节数）</li>
-<li><code>-i</code> 显示文件的inode节点</li>
-</ul>
-<p>例子：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># ls</span></div><div class="line">1.log      4.sh                         find       inst.log             my_pack.tar                                 phantomjs-2.1.1-linux-x86_64            shiny-server-1.5.4.869-rh5-x86_64.rpm</div><div class="line">1_log.zip  bash_prog.sh                 for.log    ip_validate.sh       mysql57-community-release-el7-8.noarch.rpm  phantomjs-2.1.1-linux-x86_64.tar.bz2    spark</div><div class="line">1.txt      chongdingxiang.txt           hello.c    linuxcast            mysql_pass.sh                               phantomjs-2.1.1-linux-x86_64.tar.bz2.1  test.log</div><div class="line">2b.log     c_learn                      hello.i    linuxcast.net        nash_su2                                    rstudio-server-rhel-1.0.153-x86_64.rpm  text</div><div class="line">2.sh       correct.log                  hello.log  local_global_var.sh  nohup.out                                   runoob.txt                              vim_1.txt</div><div class="line">2.txt      epel-release-6-8.noarch.rpm  hello.s    ls                   npm-debug.log                               runoob.zip                              wget-log</div><div class="line">3.sh       error.log                    hello.sh   my_dir               pdi-ce-7.0.0.0-25.zip                       shiny_find.log</div></pre></td></tr></table></figure>
-<h3 id="查看但当前目录下的文件"><a href="#查看但当前目录下的文件" class="headerlink" title="查看但当前目录下的文件"></a>查看但当前目录下的文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># ls -l</span></div><div class="line">总用量 939952</div><div class="line">-rw-r--r-- 1 root root       223 12月 23 16:02 1.log</div><div class="line">-rw-r--r-- 1 root root       310 12月 25 10:30 1_log.zip</div><div class="line">-rw-r--r-- 1 root root      4181 12月 24 09:34 1.txt</div><div class="line">-rw-r--r-- 1 root root         0 12月 27 09:43 2b.log</div><div class="line">-rw-r--r-- 1 root root        88 12月 24 10:24 2.sh</div><div class="line">-rw-r--r-- 1 root root        76 12月 23 16:14 2.txt</div><div class="line">-rw-r--r-- 1 root root       202 12月 24 11:07 3.sh</div><div class="line">-rw-r--r-- 1 root root       295 12月 24 17:03 4.sh</div><div class="line">-rwxr-xr-x 1 root root        31 11月 24 00:43 bash_prog.sh</div><div class="line">-rw-r--r-- 1 root root         7 12月 21 11:21 chongdingxiang.txt</div><div class="line">drwxr-xr-x 2 root root      4096 12月 31 13:58 c_learn</div><div class="line">-rw-r--r-- 1 root root         0 11月 26 22:57 correct.log</div><div class="line">-rw-r--r-- 1 root root     14540 11月  5 2012 epel-release-6-8.noarch.rpm</div><div class="line">-rw-r--r-- 1 root root       110 12月 21 11:23 error.log</div><div class="line">-rw-r--r-- 1 root root         0 11月 30 16:32 find</div><div class="line">-rw-r--r-- 1 root root      8008 12月  9 02:13 for.log</div><div class="line">-rw-r--r-- 1 root root        97 12月 10 15:14 hello.c</div><div class="line">-rw-r--r-- 1 root root     16893 12月 10 15:14 hello.i</div><div class="line">-rw-r--r-- 1 root root        13 12月  9 22:39 hello.log</div><div class="line">-rw-r--r-- 1 root root       503 12月 10 15:15 hello.s</div><div class="line">-rwxr-xr-x 1 root root        34 11月 24 18:02 hello.sh</div><div class="line">-rw-r--r-- 1 root root         0 12月 27 09:43 inst.log</div><div class="line">-rwxr-xr-x 1 root root       520 11月 24 07:45 ip_validate.sh</div><div class="line">drwxr-xr-x 2 root root      4096 12月 31 15:17 linuxcast</div><div class="line">drwxr-xr-x 2 root root      4096 12月 29 14:49 linuxcast.net</div><div class="line">-rwxr-xr-x 1 root root       176 12月 16 09:47 local_global_var.sh</div><div class="line">drwxr-xr-x 2 root root      4096 11月 19 23:05 ls</div><div class="line">drwxr-xr-x 2 root root      4096 11月 25 17:10 my_dir</div><div class="line">-rw-r--r-- 1 root root     20480 11月 25 17:10 my_pack.tar</div><div class="line">-rw-r--r-- 1 root root      9116 4月  11 2016 mysql57-community-release-el7-8.noarch.rpm</div><div class="line">-rwxrwxrwx 1 root root       244 12月  6 2016 mysql_pass.sh</div><div class="line">-rw-r--r-- 1 root root         0 12月 24 19:48 nash_su2</div><div class="line">-rw------- 1 root root         0 12月  8 23:25 nohup.out</div><div class="line">-rw-r--r-- 1 root root      4151 7月  13 14:21 npm-debug.log</div><div class="line">-rw-r--r-- 1 root root 839559799 11月  6 2016 pdi-ce-7.0.0.0-25.zip</div><div class="line">drwxr-xr-x 4 root root      4096 1月  25 2016 phantomjs-2.1.1-linux-x86_64</div><div class="line">-rw-r--r-- 1 root root  41440732 7月  21 02:31 rstudio-server-rhel-1.0.153-x86_64.rpm</div><div class="line">-rw-r--r-- 1 root root       119 11月 20 22:34 runoob.txt</div><div class="line">-rw-r--r-- 1 root root       287 11月 23 00:10 runoob.zip</div><div class="line">-rw-r--r-- 1 root root    804975 12月 11 14:16 shiny_find.log</div><div class="line">-rw-r--r-- 1 root root  55829650 8月  26 03:17 shiny-server-1.5.4.869-rh5-x86_64.rpm</div><div class="line">drwxr-xr-x 2 root root      4096 10月 29 18:03 spark</div><div class="line">-rw-r--r-- 1 root root       515 12月 17 20:32 test.log</div><div class="line">drwxr-xr-x 2 root root      4096 12月 23 20:45 text</div><div class="line">-rw-r--r-- 1 root root        72 12月 25 11:13 vim_1.txt</div><div class="line">-rw-r--r-- 1 root root   1196072 9月   5 18:43 wget-log</div></pre></td></tr></table></figure>
-<p>这里<code>ls -l</code>命令的别名为<code>ll</code>，即<code>ll</code>也能够得到和上面一样的结果。关于别名的用法，以后的博客中会专门谈到。这里了解一下结果中的详细信息。</p>
-<p>下面以<code>bash_prog.sh</code>为例：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-rwxr-xr-x 1 root root        31 11月 24 00:43 bash_prog.sh</div></pre></td></tr></table></figure>
-<p><code>-rwxr-xr-x</code>前面的<code>-</code>表示普通文件，后面的<code>rxw</code>分别表示“可读”、“可写”、“可执行”。其中从左往右前三个表示文件所属用户的权限，这里是<strong>所属用户可读、可写、可执行</strong>；中间三位表示文件所属用户组的权限，这里是<strong>所属用户组可读、不可写、可执行</strong>；后三位表示其他用户组的权限，这里是<strong>其他用户可读、不可写、可执行</strong>。</p>
-<p>刚刚提到了<code>-</code>表示普通文件，其实Linux系统存在7种文件类型，但作为入门和日常使用，只需要了解常见的三种——<code>-dl</code>。<code>d</code>顾名思义，表示目录，<code>l</code>则表示软链接文件（相当于windows系统中的快捷方式）。</p>
-<h3 id="查看某一特定文件夹下的文件"><a href="#查看某一特定文件夹下的文件" class="headerlink" title="查看某一特定文件夹下的文件"></a>查看某一特定文件夹下的文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># ll -hia ./my_dir/</span></div><div class="line">总用量 36K</div><div class="line">541936 drwxr-xr-x  2 root root 4.0K 11月 25 17:10 .</div><div class="line">262149 dr-xr-x--- 17 root root 4.0K 12月 31 13:58 ..</div><div class="line">541134 -rw-r--r--  1 root root  117 11月 22 09:18 abc.txt</div><div class="line">541128 -rw-r--r--  1 root root  234 11月 25 17:06 abc.zip</div><div class="line">547870 -rw-r--r--  1 root root   49 11月 20 19:42 helloA.c</div><div class="line">547869 -rw-r--r--  1 root root   49 11月 20 19:38 hello_world</div><div class="line">541131 -rw-r--r--  1 root root  10K 11月 25 17:10 my_pack.tar</div></pre></td></tr></table></figure>
-<p>最前面的数字表示文件的inode节点，第三列的数字表示引用计数，与链接命令有关。接下来的<code>10K</code>表示my_pack.tar文件的大小为10K。11月 25 17:10表示文件最后修改的时间。</p>
-<h2 id="2-创建目录：mkdir"><a href="#2-创建目录：mkdir" class="headerlink" title="2. 创建目录：mkdir"></a>2. 创建目录：<code>mkdir</code></h2><p>基本格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkdir -p [参数]</div></pre></td></tr></table></figure>
-<p>选项：</p>
-<ul>
-<li><code>-p</code> 递归创建目录</li>
-</ul>
-<p>例子：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># mkdir dir1</span></div><div class="line">[root@IamLEO dir1]<span class="comment"># ll</span></div><div class="line">总用量 0</div><div class="line">-rw-r--r-- 1 root root 0 1月   6 15:50 aa.txt</div><div class="line">-rw-r--r-- 1 root root 0 1月   6 15:50 bb.txt</div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO dir1]<span class="comment"># mkdir dir1/dir2</span></div><div class="line">mkdir: 无法创建目录<span class="string">"dir1/dir2"</span>: 没有那个文件或目录</div><div class="line">[root@IamLEO dir1]<span class="comment"># mkdir -p  dir1/dir2</span></div><div class="line">[root@IamLEO dir1]<span class="comment"># ll</span></div><div class="line">总用量 4</div><div class="line">-rw-r--r-- 1 root root    0 1月   6 15:50 aa.txt</div><div class="line">-rw-r--r-- 1 root root    0 1月   6 15:50 bb.txt</div><div class="line">drwxr-xr-x 3 root root 4096 1月   6 15:51 dir1</div></pre></td></tr></table></figure>
-<p>注：</p>
-<ul>
-<li>如果是在当前目录下创建一个普通目录，直接在<code>mkdir</code>后跟上想要创建的目录名即可</li>
-<li>如果是在当前目录下递归地创建目录，类似于<code>mkdir current_dir/dir_a/dir_b</code>，需要在<code>mkdir</code>后面加上<code>-p</code>选项</li>
-</ul>
-<h2 id="3-切换目录：cd"><a href="#3-切换目录：cd" class="headerlink" title="3. 切换目录：cd"></a>3. 切换目录：<code>cd</code></h2><p>基本格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> [目录]</div></pre></td></tr></table></figure>
-<p>例子：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># cd my_dir/</span></div><div class="line">[root@IamLEO my_dir]<span class="comment"># pwd  # `pwd`打印当前目录的完整路径</span></div><div class="line">/root/my_dir</div></pre></td></tr></table></figure>
-<p>附：几个关于<code>cd</code>命令的简化操作</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> ~  <span class="comment"># 进入当前目录的家目录</span></div><div class="line"><span class="built_in">cd</span>    <span class="comment"># 同上</span></div><div class="line"><span class="built_in">cd</span> -  <span class="comment"># 进入上次目录</span></div><div class="line"><span class="built_in">cd</span> .. <span class="comment"># 进入上一级目录</span></div><div class="line"><span class="built_in">cd</span> .  <span class="comment"># 进入当前目录</span></div></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO my_dir]<span class="comment"># </span></div><div class="line">[root@IamLEO my_dir]<span class="comment"># cd ~</span></div><div class="line">[root@IamLEO ~]<span class="comment"># pwd</span></div><div class="line">/root</div><div class="line">[root@IamLEO ~]<span class="comment"># cd .</span></div><div class="line">[root@IamLEO ~]<span class="comment"># cd ..</span></div><div class="line">[root@IamLEO /]<span class="comment"># cd -</span></div><div class="line">/root</div><div class="line">[root@IamLEO ~]<span class="comment"># cd ~</span></div></pre></td></tr></table></figure>
-<p>根目录是整个Linux系统的最顶层目录，用<code>/</code>表示。<br>家目录是每个用户登陆系统后所在的目录，一般位于<code>/home/</code>目录下（root用户的家目录位于<code>/root/</code>目录），以用户名作为目录，用<code>~</code>表示。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> /  <span class="comment"># 进入根目录</span></div><div class="line"><span class="built_in">cd</span> ~  <span class="comment"># 进入当前用户的家目录</span></div></pre></td></tr></table></figure>
-<p>关于路径，还存在绝对路径和相对路径之分：</p>
-<ul>
-<li>相对路径：以当前目录作为基础进行目录的切换和文件的查找</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># cd ./my_dir/</span></div><div class="line">[root@IamLEO my_dir]<span class="comment"># </span></div><div class="line"></div><div class="line">[root@IamLEO ~]<span class="comment"># ll -hia ./my_dir/</span></div><div class="line">总用量 36K</div><div class="line">541936 drwxr-xr-x  2 root root 4.0K 11月 25 17:10 .</div><div class="line">262149 dr-xr-x--- 18 root root 4.0K 1月   6 15:49 ..</div><div class="line">541134 -rw-r--r--  1 root root  117 11月 22 09:18 abc.txt</div><div class="line">541128 -rw-r--r--  1 root root  234 11月 25 17:06 abc.zip</div><div class="line">547870 -rw-r--r--  1 root root   49 11月 20 19:42 helloA.c</div><div class="line">547869 -rw-r--r--  1 root root   49 11月 20 19:38 hello_world</div><div class="line">541131 -rw-r--r--  1 root root  10K 11月 25 17:10 my_pack.tar</div></pre></td></tr></table></figure>
-<ul>
-<li>绝对路径：从根目录开始，一级一级地递归查找，无论当前处于哪一个目录下面。</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO my_dir]<span class="comment"># cd /root/my_dir/</span></div><div class="line">[root@IamLEO my_dir]<span class="comment"># pwd</span></div><div class="line">/root/my_dir</div></pre></td></tr></table></figure>
-<p>值得指出的一点是，Linux系统非常人性化，可以很方便地进行文件名补全、目录名补全。当一个文件名/目录名过长的时候，直接摁住<code>Tab</code>键会打印出该文件/目录的名称，有的时候需要嗯两次，因为有文件的的前面几个字符都相同。</p>
-<h2 id="4-删除空目录：rmdir"><a href="#4-删除空目录：rmdir" class="headerlink" title="4. 删除空目录：rmdir"></a>4. 删除空目录：<code>rmdir</code></h2><p>基本格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rmdir [目录名]</div></pre></td></tr></table></figure>
-<p>注：</p>
-<ul>
-<li><code>rmdir</code>只能删除空文件夹，所以很少用</li>
-</ul>
-<p>例子：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO my_dir]<span class="comment"># ll</span></div><div class="line">总用量 28</div><div class="line">-rw-r--r-- 1 root root   117 11月 22 09:18 abc.txt</div><div class="line">-rw-r--r-- 1 root root   234 11月 25 17:06 abc.zip</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div><div class="line">[root@IamLEO my_dir]<span class="comment"># mkdir test_dir</span></div><div class="line">[root@IamLEO my_dir]<span class="comment"># rmdir test_dir/</span></div><div class="line">[root@IamLEO my_dir]<span class="comment"># ll</span></div><div class="line">总用量 28</div><div class="line">-rw-r--r-- 1 root root   117 11月 22 09:18 abc.txt</div><div class="line">-rw-r--r-- 1 root root   234 11月 25 17:06 abc.zip</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div></pre></td></tr></table></figure>
-<h2 id="5-删除文件或者目录：rm"><a href="#5-删除文件或者目录：rm" class="headerlink" title="5. 删除文件或者目录：rm"></a>5. 删除文件或者目录：<code>rm</code></h2><p>基本格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rm -rf [文件/目录]</div></pre></td></tr></table></figure>
-<p>选项：</p>
-<ul>
-<li><code>-r</code> 删除目录</li>
-<li><code>-f</code> 强制</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO my_dir]<span class="comment"># ll</span></div><div class="line">总用量 28</div><div class="line">-rw-r--r-- 1 root root   117 11月 22 09:18 abc.txt</div><div class="line">-rw-r--r-- 1 root root   234 11月 25 17:06 abc.zip</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div><div class="line">[root@IamLEO my_dir]<span class="comment"># rm abc.txt </span></div><div class="line">rm：是否删除普通文件 <span class="string">"abc.txt"</span>？y</div><div class="line"></div><div class="line">[root@IamLEO my_dir]<span class="comment"># rm -f abc.zip </span></div><div class="line">[root@IamLEO my_dir]<span class="comment"># ll</span></div><div class="line">总用量 20</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div></pre></td></tr></table></figure>
-<p>可以看到，<code>abc.zip</code>被强制删除，并没有出现让我们选择是否删除的选项。</p>
-<p>下面给出一条非常著名的命令，请勿尝试！！！后果很严重！！！</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># rm -rf /</span></div></pre></td></tr></table></figure>
-<h2 id="6-复制命令：cp"><a href="#6-复制命令：cp" class="headerlink" title="6. 复制命令：cp"></a>6. 复制命令：<code>cp</code></h2><p>这个命令是不是经常听到😂😅</p>
-<p>基本格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cp [选项] [源文件/目录] [目标目录]</div></pre></td></tr></table></figure>
-<p>选项：</p>
-<ul>
-<li><code>-r</code> 复制目录</li>
-<li><code>-f</code> 同时复制文件属性</li>
-<li><code>-d</code> 若源文件为链接文件，则复制链接属性</li>
-<li><code>-a</code> 相当于<code>-pdr</code></li>
-</ul>
-<h3 id="改名复制"><a href="#改名复制" class="headerlink" title="改名复制"></a>改名复制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># ll hello.sh</span></div><div class="line">-rwxr-xr-x 1 root root 34 11月 24 18:02 hello.sh</div><div class="line">[root@IamLEO ~]<span class="comment"># cp hello.sh /root/my_dir/hello_1.sh</span></div><div class="line">[root@IamLEO ~]<span class="comment"># ll my_dir/</span></div><div class="line">总用量 24</div><div class="line">-rwxr-xr-x 1 root root    34 1月   6 16:26 hello_1.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div></pre></td></tr></table></figure>
-<p>可以看到，将<code>hello.sh</code>复制到<code>my_dir</code>文件夹下，并改名<code>hello_1.sh</code>，其最后更新的时间会发生变化。如果不想要这个时间发生变化，可以加上<code>-p</code>选项，如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># ll hello.sh </span></div><div class="line">-rwxr-xr-x 1 root root 34 11月 24 18:02 hello.sh</div><div class="line">[root@IamLEO ~]<span class="comment"># cp -p hello.sh my_dir</span></div><div class="line">[root@IamLEO ~]<span class="comment"># ll my_dir/hello.sh </span></div><div class="line">-rwxr-xr-x 1 root root 34 11月 24 18:02 my_dir/hello.sh</div></pre></td></tr></table></figure>
-<h3 id="复制目录"><a href="#复制目录" class="headerlink" title="复制目录"></a>复制目录</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># cp -r linuxcast ./my_dir/</span></div><div class="line">[root@IamLEO ~]<span class="comment"># ll ./my_dir/</span></div><div class="line">总用量 28</div><div class="line">-rwxr-xr-x 1 root root    34 1月   6 16:26 hello_1.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">drwxr-xr-x 2 root root  4096 1月   6 16:28 linuxcast</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div></pre></td></tr></table></figure>
-<h2 id="7-简介-改名命令：cp"><a href="#7-简介-改名命令：cp" class="headerlink" title="7. 简介/改名命令：cp"></a>7. 简介/改名命令：<code>cp</code></h2><p>基本格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mv [源文件/目录] [目标目录]</div></pre></td></tr></table></figure>
-<p>例子：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO ~]<span class="comment"># ll mv_example.txt </span></div><div class="line">-rw-r--r-- 1 root root 0 1月   6 16:39 mv_example.txt</div><div class="line">[root@IamLEO ~]<span class="comment"># ll my_dir/</span></div><div class="line">总用量 32</div><div class="line">-rwxr-xr-x 1 root root    34 1月   6 16:26 hello_1.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rwxr-xr-x 1 root root    34 11月 24 18:02 hello.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">drwxr-xr-x 2 root root  4096 1月   6 16:28 linuxcast</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div><div class="line">[root@IamLEO ~]<span class="comment">#  mv mv_example.txt my_dir/</span></div><div class="line">[root@IamLEO ~]<span class="comment"># ll my_dir/</span></div><div class="line">总用量 32</div><div class="line">-rwxr-xr-x 1 root root    34 1月   6 16:26 hello_1.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rwxr-xr-x 1 root root    34 11月 24 18:02 hello.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">drwxr-xr-x 2 root root  4096 1月   6 16:28 linuxcast</div><div class="line">-rw-r--r-- 1 root root     0 1月   6 16:39 mv_example.txt</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div></pre></td></tr></table></figure>
-<p>注：</p>
-<ul>
-<li><p><code>mv</code>命令在剪切目录时不需要加<code>-r</code>选项</p>
-</li>
-<li><p><code>cp</code>和<code>rm</code>命令在操作目录对象时候需要加选项<code>-r</code></p>
-</li>
-</ul>
-<h3 id="修改文件名"><a href="#修改文件名" class="headerlink" title="修改文件名"></a>修改文件名</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">[root@IamLEO my_dir]<span class="comment"># ll</span></div><div class="line">总用量 32</div><div class="line">-rwxr-xr-x 1 root root    34 1月   6 16:26 hello_1.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rwxr-xr-x 1 root root    34 11月 24 18:02 hello.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">drwxr-xr-x 2 root root  4096 1月   6 16:28 linuxcast</div><div class="line">-rw-r--r-- 1 root root     0 1月   6 16:39 mv_example.txt</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div><div class="line">[root@IamLEO my_dir]<span class="comment"># mv mv_example.txt example_mv.txt</span></div><div class="line">[root@IamLEO my_dir]<span class="comment"># ll</span></div><div class="line">总用量 32</div><div class="line">-rw-r--r-- 1 root root     0 1月   6 16:39 example_mv.txt</div><div class="line">-rwxr-xr-x 1 root root    34 1月   6 16:26 hello_1.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:42 helloA.c</div><div class="line">-rwxr-xr-x 1 root root    34 11月 24 18:02 hello.sh</div><div class="line">-rw-r--r-- 1 root root    49 11月 20 19:38 hello_world</div><div class="line">drwxr-xr-x 2 root root  4096 1月   6 16:28 linuxcast</div><div class="line">-rw-r--r-- 1 root root 10240 11月 25 17:10 my_pack.tar</div></pre></td></tr></table></figure>
-<p>源文件与目标文件不在一个目录下，就是剪切。如果在一个目录下，就是改名。</p>
-<h2 id="8-参考"><a href="#8-参考" class="headerlink" title="8. 参考"></a>8. 参考</h2><ul>
-<li><a href="http://www.imooc.com/video/3474" target="_blank" rel="external">Linux达人养成计划 I —— 第三章</a></li>
-</ul>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/01/06/Linux学习第二弹—目录处理命令/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1175,6 +1092,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -1685,7 +1624,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">8</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
